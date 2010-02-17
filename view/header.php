@@ -27,8 +27,8 @@
 	</ul>
 	<b>Feeds:</b>
 	<ul>
-		<li class="li_feed"><a href="<?php _u('fe'); ?>">Entradas</a></li>
-		<li class="li_feed"><a href="<?php _u('fc'); ?>">Comentarios</a></li>
+		<li class="li_feed"><a href="<?php echo _u('fe'); ?>">Entradas</a></li>
+		<li class="li_feed"><a href="<?php echo _u('fc'); ?>">Comentarios</a></li>
 	</ul>
 	</div>
 	<br />

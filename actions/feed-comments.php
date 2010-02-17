@@ -6,16 +6,25 @@
 
 require('includes/rss.class.php');
 
-$query  = "SELECT c.*,e.`slug`,e.`title`";
+$query  = "(";
+$query .= "SELECT c.`parentid`, c.`order`, c.`nick`, c.`content`, c.`date` AS sort, p.`slug`, p.`title`, c.`parenttype`";
 $query .= " FROM `".DB_PREFIX."comments` c";
-$query .= " LEFT JOIN `".DB_PREFIX."entries` e";
-$query .= " ON c.`parenttype` = 'e' AND c.`parentid` = e.`id`"; # Unión
-$query .= " WHERE c.`status` <> 'h'"; # Comentarios visibles
-$query .= " AND e.`comments` <> 'n'"; # Entradas con comentarios visibles
-$query .= " AND e.`status` = 'v'"; # Entradas visibles
-$query .= " ORDER BY c.`date` DESC, c.`id` DESC";
-$query .= " LIMIT ";
-$query .= P_LIMIT;
+$query .= " INNER JOIN `".DB_PREFIX."pages` p";
+$query .= " ON c.`parenttype` = 'p' AND c.`parentid` = p.`id`"; # Unión
+$query .= " WHERE c.`status` <> 'h'";
+$query .= " AND p.`comments` <> 'n'";
+$query .= " AND p.`status` = 'v'";
+$query .= ") UNION ALL (";
+$query .= "SELECT c.`parentid`, c.`order`, c.`nick`, c.`content`, c.`date` AS sort, p.`slug`, p.`title`, c.`parenttype`";
+$query .= " FROM `".DB_PREFIX."comments` c";
+$query .= " INNER JOIN `".DB_PREFIX."entries` p";
+$query .= " ON c.`parenttype` = 'e' AND c.`parentid` = p.`id`";
+$query .= " WHERE c.`status` <> 'h'";
+$query .= " AND p.`comments` <> 'n'";
+$query .= " AND p.`status` = 'v'";
+$query .= ")";
+$query .= " ORDER BY `sort` DESC";
+$query .= " LIMIT 10";
 if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 $rss = new RSS('Comentarios para '.TITLE, _u('fc'), DESCRIPTION);
@@ -23,12 +32,12 @@ $rss = new RSS('Comentarios para '.TITLE, _u('fc'), DESCRIPTION);
 if(mysql_num_rows($sql) != 0) {
 	# Si hay comentarios
 	while($row = mysql_fetch_row($sql)) {
-		$row[4] = htmlspecialchars($row[4]);
-		$row[13] = htmlspecialchars($row[13]);
-		$t = sprintf('Comentario de %s en %s', $row[4], $row[13]);
-		$row[7] = format($row[7], 'cf');
-		$l = _u('e', $row[1], $row[12]).'#comment-'.$row[3];
-		$rss->item($t, $l, $row[7], $row[8]);
+		$row[2] = htmlspecialchars($row[2]);
+		$row[6] = htmlspecialchars($row[6]);
+		$t = sprintf('Comentario de %s en %s', $row[2], $row[6]);
+		$row[3] = format($row[3], 'cf');
+		$l = _u($row[7], (($row[7] == 'e') ? $row[0] : $row[5]), (($row[7] == 'e') ? $row[5] : '')).'#comment-'.$row[1];
+		$rss->item($t, $l, $row[3], $row[4]);
 	}
 }
 
