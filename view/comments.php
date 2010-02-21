@@ -14,7 +14,10 @@
 		<div class="comment"><a name="comment-<?php echo $rowsC[$c][3]; ?>"></a>
 			<div class="cavatar"><img src="http://www.gravatar.com/avatar/<?php echo $rowsC[$c][5]; ?>?s=54&amp;d=<?php echo BASE_STATIC; ?>images/no-avatar.png" alt="" width="54" height="54" /></div>
 			<div class="ccontent">
-				<div class="cinfo"><a href="#comment-<?php echo $rowsC[$c][3]; ?>">#<?php echo $rowsC[$c][3]; ?></a> <b><?php echo (empty($rowsC[$c][6])) ? $rowsC[$c][4] : "<a rel=\"nofollow\" href=\"{$rowsC[$c][6]}\" target=\"_blank\">{$rowsC[$c][4]}</a>"; ?></b> el <?php echo _d('j F Y', $rowsC[$c][8]); ?>. <?php if(COMMENTS_STATUS == 'y') { ?> <span class="creply"><a href="#comentar" onclick="javascript:re(<?php echo $rowsC[$c][3]; ?>)">Responder</a></span><?php } ?></div>
+				<div class="cinfo">
+				<a href="#comment-<?php echo $rowsC[$c][3]; ?>">#<?php echo $rowsC[$c][3]; ?></a> <b><?php echo (empty($rowsC[$c][6])) ? $rowsC[$c][4] : "<a rel=\"nofollow\" href=\"{$rowsC[$c][6]}\" target=\"_blank\">{$rowsC[$c][4]}</a>"; ?></b> el <?php echo _d('j F Y', $rowsC[$c][8]); ?>.
+				<?php if(COMMENTS_STATUS == 'y') { ?> <span class="creply"><a href="#comentar" onclick="javascript:re('<?php echo $rowsC[$c][3]; ?>', '<?php echo $rowsC[$c][4]; ?>')">Responder</a></span><?php } ?>
+				</div>
 				<p><?php echo $rowsC[$c][7]; ?></p>
 			</div>
 		</div>

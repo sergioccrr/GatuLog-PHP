@@ -137,6 +137,11 @@ h2 a {
 	text-decoration: none;
 	color: #333333;
 }
+h4 {
+	margin-bottom: 10px;
+	font-size: 1.4em;
+	font-weight: normal;
+}
 
 /* Icons */
 .s_date, .s_comments, .s_comment, .s_trackback {
@@ -188,13 +193,9 @@ hr.separator {
 	background-color: #FFFFFF;
 	border: 1px solid #DFDFDF;
 }
-#comments h4 {
-	font-size: 1.4em;
-	font-weight: normal;
-}
 
-/* Comments */
-.comment {
+/* Comments and Trackbacks */
+.comment, .trackback {
 	/*min-height: 65px;*/
 	/*height: auto !important;*/
 	margin: 0 0 9px 0;
@@ -212,19 +213,18 @@ hr.separator {
 	/*min-height: 60px;*/
 	margin-left: 64px;
 }
-.comment .cinfo {
+.comment .cinfo, .trackback .cinfo {
 	padding: 5px 0 5px 10px;
 	background-color: #F1F1F1;
 	border-bottom: 1px solid #E5E5E5;
 }
-
 .comment .cinfo .creply {
 	float: right;
 	margin-right: 10px;
 	padding-left: 18px;
 	background: url('../images/comment_edit.png') no-repeat left center;
 }
-.comment .ccontent p {
+.comment .ccontent p, .trackback .ccontent p {
 	margin-left: 10px;
 }
 
