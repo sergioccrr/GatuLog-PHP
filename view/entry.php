@@ -26,6 +26,9 @@
 
 </div>
 
-<?php if(defined('COMMENTS_STATUS')) { require('view/comments.php'); } ?>
+<?php
+if(defined('COMMENTS_STATUS')) { require('view/comments.php'); }
+if($row[8] == 'y') { require('view/trackbacks.php'); }
+?>
 
 <?php include('footer.php'); ?>

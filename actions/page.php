@@ -27,10 +27,15 @@ if(mysql_num_rows($sql) == 0) {
 	$row[2] = htmlspecialchars($row[2]);
 	$row[3] = format($row[3], 'p');
 
+	define('PARENT_TYPE', 'p');
+
 	if($row[5] != 'n') {
-		define('COMMENTS_TYPE', 'p');
 		define('COMMENTS_STATUS', $row[5]);
 		require('includes/comments.php');
+	}
+
+	if($row[6] == 'y') {
+		require('includes/trackbacks.php');
 	}
 
 	$_TITLE = $row[2].S_TITLE.TITLE;

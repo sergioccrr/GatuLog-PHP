@@ -32,10 +32,15 @@ if(mysql_num_rows($sql) == 0) {
 	$part[0] = trim($part[0]);
 	if(isset($part[1])) $part[1] = trim($part[1]);
 
+	define('PARENT_TYPE', 'e');
+
 	if($row[7] != 'n') {
-		define('COMMENTS_TYPE', 'e');
 		define('COMMENTS_STATUS', $row[7]);
 		require('includes/comments.php');
+	}
+
+	if($row[8] == 'y') {
+		require('includes/trackbacks.php');
 	}
 
 	$_TITLE = $row[2].S_TITLE.TITLE;
