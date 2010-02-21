@@ -23,8 +23,8 @@ function _d($f, $t) {
 # Función para dar formato al texto
 function format($str, $type='') {
 	$tmp = new format($str, true, true);
+	$tmp->html(array('b','i','u','s'));
 	if($type == 'e' || $type == 'p') {
-		$tmp->html(array('b','i','u','s'));
 		$tmp->parse('#\[tex\](.*?)\[/tex\]#se', '"[img]http://chart.apis.google.com/chart?cht=tx&chl=".rawurlencode("\\1")."[/img]"');
 		$tmp->tag('img', '<img src="\\1" alt="" />');
 		$tmp->attribute('img', '<img src="\\2" alt="\\1" />');

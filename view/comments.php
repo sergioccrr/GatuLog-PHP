@@ -1,6 +1,6 @@
 <?php if(COMMENTS_STATUS == 'y' || (COMMENTS_STATUS == 'c') && !$NoComments) { ?>
 <hr class="separator" />
-<div id="comments">
+<div class="entry">
 
 <a name="comentarios"></a>
 <h4>Comentarios</h4>
@@ -38,15 +38,15 @@
 		<p>Debes rellenar todos los campos.</p>
 		<?php } ?>
 
-		<form name="comment" method="post" action="<?=$form['action']?>#comentar">
+		<form name="comment" method="post" action="<?php echo $form['action']; ?>#comentar">
 		<label for="nick">Nick:</label>
-		<input type="text" id="nick" name="nick" value="<?=$form['nick']?>" /><br />
+		<input type="text" id="nick" name="nick" value="<?php echo $form['nick']; ?>" /><br />
 		<label for="email">Email:</label>
-		<input type="text" id="email" name="email" value="<?=$form['email']?>" />&nbsp;No sera publicado. Para el <a href="http://es.wikipedia.org/wiki/Gravatar" target="_blank">Gravatar</a>.<br />
+		<input type="text" id="email" name="email" value="<?php echo $form['email']; ?>" />&nbsp;No sera publicado. Para el <a href="http://es.wikipedia.org/wiki/Gravatar" target="_blank">Gravatar</a>.<br />
 		<label for="web">Web:</label>
-		<input type="text" id="web" name="web" value="<?=$form['web']?>" />&nbsp;Opcional.<br />
+		<input type="text" id="web" name="web" value="<?php echo $form['web']; ?>" />&nbsp;Opcional.<br />
 		<label for="content">Comentario:</label>
-		<textarea id="content" name="content" cols="50" rows="10"><?=$form['content']?></textarea><br />
+		<textarea id="content" name="content" cols="50" rows="10"><?php echo $form['content']; ?></textarea><br />
 		<label for="captcha">C. seguridad:</label>
 		<input type="text" id="captcha" name="captcha" size="10" />&nbsp;<img src="<?php echo _u('ca', $cid); ?>" alt="" /> Introduce los caracteres de la imagen en el campo.<br />
 		<label for="remember">¿Recordarme?</label>

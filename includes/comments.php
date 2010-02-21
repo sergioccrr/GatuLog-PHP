@@ -8,8 +8,8 @@
 #
 # SESSION & COOKIE Name
 #
-$tid = 't-'.COMMENTS_TYPE.$row[0];
-$cid = 'c-'.COMMENTS_TYPE.$row[0];
+$tid = 't-'.PARENT_TYPE.$row[0];
+$cid = 'c-'.PARENT_TYPE.$row[0];
 $rid = 'gatita';
 
 ########################################################################
@@ -47,12 +47,12 @@ if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 			$query  = "SELECT MAX(`order`) ";
 			$query .= "FROM `".DB_PREFIX."comments` ";
 			$query .= "WHERE `parentid` = '{$row[0]}' ";
-			$query .= "AND `parenttype` = '".COMMENTS_TYPE."'";
+			$query .= "AND `parenttype` = '".PARENT_TYPE."'";
 			if(!$sql = mysql_query($query)) throw new Exception('mysql');
 
 			$order = mysql_result($sql, 0, 0) + 1;
 			$query  = "INSERT INTO `".DB_PREFIX."comments` ";
-			$query .= "VALUES (NULL,'{$row[0]}','".COMMENTS_TYPE."','{$order}','{$_POST['nick']}','{$_POST['email']}','{$_POST['web']}','{$_POST['content']}','{$date}','{$ip}','{$ua}','n')";
+			$query .= "VALUES (NULL,'{$row[0]}','".PARENT_TYPE."','{$order}','{$_POST['nick']}','{$_POST['email']}','{$_POST['web']}','{$_POST['content']}','{$date}','{$ip}','{$ua}','n')";
 			if(!$sql = mysql_query($query)) throw new Exception('mysql');
 			unset($_POST);
 		}
@@ -67,7 +67,7 @@ if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 $queryC  = "SELECT * ";
 $queryC .= "FROM `".DB_PREFIX."comments` ";
 $queryC .= "WHERE `parentid` = '{$row[0]}' "; # Comentarios de esta entrada o pagina
-$queryC .= "AND `parenttype` = '".COMMENTS_TYPE."' "; # Comentarios de entradas o paginas
+$queryC .= "AND `parenttype` = '".PARENT_TYPE."' "; # Comentarios de entradas o paginas
 $queryC .= "AND `status` <> 'h' "; # Comentarios no ocultos
 $queryC .= "ORDER BY `order` ASC";
 if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql');
@@ -110,7 +110,7 @@ if($totalC == 0) {
 #
 # Form
 #
-$form['action'] = _u(COMMENTS_TYPE, ((COMMENTS_TYPE == 'e') ? $row[0] : $row[1]), ((COMMENTS_TYPE == 'e') ? $row[1] : ''));
+$form['action'] = _u(PARENT_TYPE, ((PARENT_TYPE == 'e') ? $row[0] : $row[1]), ((PARENT_TYPE == 'e') ? $row[1] : ''));
 $form['token'] = md5(uniqid(rand(), true));
 $_SESSION[$tid] = $form['token'];
 
