@@ -1,4 +1,4 @@
-<?php if(COMMENTS_STATUS == 'y' || (COMMENTS_STATUS == 'c') && !$NoComments) { ?>
+<?php if(COMMENTS_STATUS == 'y' || (COMMENTS_STATUS == 'c' && !isset($NoComments))) { ?>
 <hr class="separator" />
 <div class="entry">
 
@@ -9,7 +9,7 @@
 		<p class="m_info">No hay comentarios. ¡Se el primero!</p>
 	<?php } ?>
 
-	<?php if(!empty($rowsC)) { ?>
+	<?php if(!isset($NoComments)) { ?>
 		<?php for($c = 1; $c <= count($rowsC); $c++) { ?>
 		<div class="comment"><a name="comment-<?php echo $rowsC[$c][3]; ?>"></a>
 			<div class="cavatar"><img src="http://www.gravatar.com/avatar/<?php echo $rowsC[$c][5]; ?>?s=54&amp;d=<?php echo BASE_STATIC; ?>images/no-avatar.png" alt="" width="54" height="54" /></div>

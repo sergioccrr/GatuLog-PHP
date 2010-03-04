@@ -5,7 +5,7 @@
 <h2><?php echo $row[2]; ?></h2>
 <span class="s_date"><?php echo _d('j F Y', $row[4]); ?></span>
 
-<?php if($row[7] != 'n' && 1==3) { ?>
+<?php if($row[7] == 'y' || ($row[7] == 'c' && !isset($NoComments))) { ?>
  <span class="s_comments"><a href="<?php echo _u('e', $row[0], $row[1]); ?>#comentarios"><?php echo ($totalC == 0) ? 'Sin comentarios' : "{$totalC} Comentario(s)"; ?></a></span>
 <?php } ?>
 

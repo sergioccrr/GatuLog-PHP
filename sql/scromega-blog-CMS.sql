@@ -10,12 +10,13 @@ CREATE TABLE `entries` (
   `slug` varchar(255),
   `title` varchar(255),
   `content` longtext,
-  `date` int(10) unsigned,
+  `date` int(11) unsigned,
   `mini` enum('y','n') default 'n',
   `status` enum('v','r','h') default 'v',
   `comments` enum('y','n','c') default 'y',
   `trackback` enum('y','n') default 'y',
-  primary key (`id`)
+  PRIMARY KEY (`id`),
+  KEY `slug` (`slug`)
 ) character set utf8 collate utf8_unicode_ci;
 
 CREATE TABLE `pages` (
@@ -26,7 +27,8 @@ CREATE TABLE `pages` (
   `status` enum('v','r','h') default 'v',
   `comments` enum('y','n','c') default 'n',
   `trackback` enum('y','n') default 'n',
-  primary key (`id`)
+  PRIMARY KEY (`id`),
+  KEY `slug` (`slug`)
 ) character set utf8 collate utf8_unicode_ci;
 
 CREATE TABLE `comments` (
@@ -38,11 +40,12 @@ CREATE TABLE `comments` (
   `email` varchar(50),
   `web` varchar(255),
   `content` longtext,
-  `date` int(10) unsigned,
+  `date` int(11) unsigned,
   `ip` varchar(100),
   `useragent` longtext,
   `status` enum('v','h','n') default 'n',
-  primary key (`id`)
+  PRIMARY KEY (`id`),
+  KEY `parentid` (`parentid`)
 ) character set utf8 collate utf8_unicode_ci;
 
 CREATE TABLE `trackbacks` (
@@ -55,5 +58,6 @@ CREATE TABLE `trackbacks` (
   `expert` longtext,
   `date` int(11) unsigned,
   `approved` enum('y','n') default 'n',
-  primary key (`id`)
+  PRIMARY KEY (`id`),
+  KEY `parentid` (`parentid`)
 ) character set utf8 collate utf8_unicode_ci;

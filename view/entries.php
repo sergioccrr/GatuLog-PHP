@@ -15,7 +15,7 @@
 		<div class="entry">
 			<h2><a href="<?php echo _u('e', $rows[$c][0], $rows[$c][1]); ?>"><?php echo $rows[$c][2]; ?></a></h2>
 			<span class="s_date"><?php echo _d('j F Y', $rows[$c][4]); ?></span>
-			<?php if($rows[$c][7] != 'n') { ?>
+			<?php if($rows[$c][7] == 'y' || ($rows[$c][7] == 'c' && $rows[$c][9] != 0)) { ?>
 			 <span class="s_comments"><a href="<?php echo _u('e', $rows[$c][0], $rows[$c][1]); ?>#comentarios"><?php echo ($rows[$c][9] == 0) ? 'Sin comentarios' : "{$rows[$c][9]} Comentario(s)"?></a></span>
 			<?php } ?>
 			<?php if($rows[$c][7] == 'y') { ?>
