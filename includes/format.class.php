@@ -77,7 +77,7 @@ class format {
 	private function code($str) {
 		$str = htmlspecialchars_decode($str);
 		$str = highlight_string($str, true);
-		return '<div class="code">'.$str.'</div>';
+		return '<pre class="code">'.$str.'</pre>';
 	}
 	public function result() {
 		if($this->code) {
