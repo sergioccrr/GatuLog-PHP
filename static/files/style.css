@@ -174,9 +174,10 @@ h4 {
 }
 
 /* Code */
-.code {
+pre.code {
 	overflow: auto;
-	padding: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 	background-color: #F1F4F6;
 }
 
