@@ -8,7 +8,7 @@ $queryT  = "SELECT * ";
 $queryT .= "FROM `".DB_PREFIX."trackbacks` ";
 $queryT .= "WHERE `parentid` = '{$row[0]}' "; # Trackbacks de esta entrada o pagina
 $queryT .= "AND `parenttype` = '".PARENT_TYPE."' "; # Trackbacks de entradas o paginas
-$queryT .= "ORDER BY `date` DESC, `id` DESC";
+$queryT .= "ORDER BY `date` ASC, `id` ASC";
 if(!$sqlT = mysql_query($queryT)) throw new Exception('mysql');
 
 while($rowT = mysql_fetch_row($sqlT)) {

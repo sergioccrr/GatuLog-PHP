@@ -68,10 +68,10 @@ class format {
 		if(!empty($this->patterns)) {
 			$str = preg_replace($this->patterns, $this->replacements, $str);
 		}
+		$str = nl2br($str);
 		if($this->ul) {
 			$str = preg_replace_callback('#\[ul\](.*?)\[\/ul\]#s', 'format::pul', $str);
 		}
-		$str = nl2br($str);
 		return $str;
 	}
 	private function code($str) {
