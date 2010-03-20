@@ -70,7 +70,7 @@ class format {
 		}
 		$str = nl2br($str);
 		if($this->ul) {
-			$str = preg_replace_callback('#\[ul\](.*?)\[\/ul\]#s', 'format::pul', $str);
+			$str = preg_replace_callback('#\[ul\](.*?)\[\/ul\]#sU', 'format::pul', $str);
 		}
 		return $str;
 	}
