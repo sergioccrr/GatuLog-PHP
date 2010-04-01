@@ -20,7 +20,7 @@ if(mysql_num_rows($sql) != 0) {
 	# Si hay entradas
 	while($row = mysql_fetch_row($sql)) {
 		$row[2] = htmlspecialchars($row[2]);
-		$row[3] = format($row[3]);
+		$row[3] = format($row[3], 'e');
 		$l = _u('e', $row[0], $row[1]);
 		$rss->item($row[2], $l, $row[3], $row[4]);
 	}

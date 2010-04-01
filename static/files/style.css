@@ -26,6 +26,10 @@ a {
 img {
 	border: none;
 }
+acronym {
+	border-bottom: 1px dotted #000000;
+	cursor: help;
+}
 
 /* Layout */
 #container {
