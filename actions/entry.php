@@ -43,7 +43,7 @@ if(mysql_num_rows($sql) == 0) {
 		require('includes/trackbacks.php');
 	}
 
-	$_TITLE = $row[2].S_TITLE.TITLE;
+	$TITLE = $row[2].S_TITLE.TITLE;
 	require('view/entry.php');
 }
 

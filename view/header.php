@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title><?php echo $_TITLE; ?></title>
+<title><?php echo $TITLE; ?></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="<?php echo BASE_STATIC; ?>files/style.css" />
 <meta name="description" content="<?php echo DESCRIPTION; ?>" />
@@ -23,6 +23,7 @@
 	<b>Menú:</b>
 	<ul>
 		<li class="li_go"><a href="<?php echo BASE; ?>">Inicio</a></li>
+		<li class="li_go"><a href="<?php echo _u('ar'); ?>">Archivo</a></li>
 		<li class="li_go"><a href="<?php echo _u('p', 'acerca-de'); ?>">Acerca de...</a></li>
 	</ul>
 	<b>Feeds:</b>

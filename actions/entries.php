@@ -39,14 +39,15 @@ if($totalEntries == 0) {
 		require('actions/404.php');
 	} else {
 		# Existe la pagina
+		$c = -1;
 		while($row = mysql_fetch_row($sql)) {
-			static $c = 0;
 			$c++;
 			$rows[$c] = $row;
 			$rows[$c][2] = htmlspecialchars($rows[$c][2]);
 			$rows[$c][3] = format($rows[$c][3], 'e');
 			$part[$c] = explode('[[CORTAR]]', $rows[$c][3]);
 		}
+		$totalFor = count($rows) - 1;
 
 		# Paginador
 		$totalPages = ceil($totalEntries / P_LIMIT);
@@ -56,7 +57,7 @@ if($totalEntries == 0) {
 			}
 		}
 
-		if($page != 1) $_TITLE = 'Pagina '.$page.S_TITLE.TITLE;
+		if($page != 1) $TITLE = 'Pagina '.$page.S_TITLE.TITLE;
 		require('view/entries.php');
 	}
 }

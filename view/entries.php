@@ -5,7 +5,7 @@
 	<p>No hay entradas.</p>
 </div>
 <?php } else { ?>
-	<?php for($c = 1; $c <= count($rows); $c++) { ?>
+	<?php for($c = 0; $c <= $totalFor; $c++) { ?>
 		<?php if($rows[$c][5] == 'y') { ?>
 		<div class="minientry">
 			<?php echo $rows[$c][3]; ?>

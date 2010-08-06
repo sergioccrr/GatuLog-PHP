@@ -10,6 +10,7 @@ $_ROUTES = array(
 	'a'=>array('page-%1%.html','a=entries&page={1}'),
 	'e'=>array('%1%-{2}.html','a=entry&id={1}&slug={2}'),
 	'p'=>array('p-{1}.html','a=page&p={1}'),
+	'ar'=>array('archive.html','a=archive'),
 	'fe'=>array('feed/entries.xml','a=feed-entries'),
 	'fc'=>array('feed/comments.xml','a=feed-comments'),
 	'te'=>array('%1%-{2}/trackback','a=trackback&id={1}&slug={2}'),
