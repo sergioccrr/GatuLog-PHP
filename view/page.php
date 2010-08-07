@@ -13,7 +13,7 @@
 <?php } ?>
 
 <?php if($row[6] == 'y') { ?>
- <span class="s_trackback"><a href="<?php echo _u('te', $row[0], $row[1]); ?>" rel="trackback">Trackback URI</a></span>
+ <span class="s_trackback"><a href="<?php echo _u('tp', $row[1]); ?>" rel="trackback">Trackback URI</a></span>
 <?php } ?>
 
 <p><?php echo $row[3]; ?></p>

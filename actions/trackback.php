@@ -4,38 +4,58 @@
  *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
  */
 
-if(empty($_POST)) {
-	if(empty($_GET['p']))
-		$url = _u('e', $_GET['id'], $_GET['slug']);
-	else
-		$url = _u('p', $_GET['p']);
-	header('Location: '.$url);
+$_GET['type'] = txtval($_GET['type']);
+
+if($_GET['type'] == 'e') {
+	$id = intval($_GET['id']);
+	$slug = txtval($_GET['slug']);
+	$table = 'entries';
+} else {
+	$p = txtval($_GET['p']);
+	$table = 'pages';
+}
+
+$query  = "SELECT `id` FROM `".DB_PREFIX."{$table}`";
+$query .= " WHERE `status` = 'v'";
+$query .= " AND `comments` <> 'n'";
+if(isset($p)) {
+	$query .= " AND `slug` = '{$p}'";
+} else {
+	$query .= " AND `id` = '{$id}'";
+	$query .= " AND `slug` = '{$slug}'";
+}
+if(!$sql = mysql_query($query)) throw new Exception('mysql');
+
+if(mysql_num_rows($sql) != 0) {
+	$pid = mysql_result($sql, 0, 0);
+}
+
+if($_SERVER['REQUEST_METHOD'] != 'POST' && !isset($pid)) {
+	# Petición GET - No existe la entrada/página
+	require('actions/404.php');
+} elseif($_SERVER['REQUEST_METHOD'] != 'POST' && isset($pid)) {
+	# Petición GET - Existe la entrada/página
+	$tmp  = ($_GET['type'] == 'e') ? _u('e', $id, $slug) : _u('p', $p);
+	header('Location: '.$tmp);
 	die();
-}
-
-require('includes/trackback.class.php');
-
-if(empty($_GET['p'])) {
-	$tid = intval($_GET['id']);
-	$ttype = 'e';
-} else {
-	$tid = txtval($_GET['p']);
-	$ttype = 'p';
-}
-
-trackback::recieve();
-if(empty(trackback::$url)) {
-	trackback::response(true, 'You must include a URL');
-} else {
-	$ttitle = txtval(trackback::$title);
-	$turl = txtval(trackback::$url);
-	$tname = txtval(trackback::$blog_name);
-	$texcerpt = txtval(trackback::$excerpt);
+} elseif($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($pid)) {
+	# Petición POST - No existe la entrada/página
+	trackbackXML(true, 'I really need a valid entry for this to work');
+} elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
+	# Petición POST - Existe la entrada/página
+	$title = trim(txtval($_POST['title']));
+	$url = trim(txtval($_POST['url']));
+	$name = trim(txtval($_POST['blog_name']));
+	$excerpt = trim(txtval($_POST['excerpt']));
 	$time = time();
-	$query = "INSERT INTO `".DB_PREFIX."trackbacks` VALUES (NULL , '{$tid}', '{$ttype}', '{$ttitle}', '{$turl}', '{$tname}', '{$texcerpt}', '{$time}', 'n')";
-	if(!$sql = mysql_query($query)) {
-		trackback::response(true);
-		throw new Exception('mysql-no');
+	if(empty($url)) {
+		trackbackXML(true, 'You must include a URL');
+	} else {
+		$query = "INSERT INTO `".DB_PREFIX."trackbacks` VALUES (NULL , '{$pid}', '{$_GET['type']}', '{$title}', '{$url}', '{$name}', '{$excerpt}', '{$time}', 'n')";
+		if($sql = mysql_query($query)) {
+			trackbackXML();
+		} else {
+			trackbackXML(true);
+		}
 	}
-	trackback::response();
 }

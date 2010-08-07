@@ -15,7 +15,7 @@ try {
 
 	$TITLE = TITLE;
 
-	if(!$LINK = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)) throw new Exception('mysql');
+	if(!$LINK = @mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)) throw new Exception('mysql');
 	if(!mysql_select_db(DB_NAME)) throw new Exception('mysql');
 	if(!mysql_query("SET NAMES 'utf8'")) throw new Exception('mysql');
 

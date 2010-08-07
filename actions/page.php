@@ -30,6 +30,7 @@ if(mysql_num_rows($sql) == 0) {
 	define('PARENT_TYPE', 'p');
 
 	if($row[5] != 'n') {
+		$FEED = _u('cp', $p);
 		define('COMMENTS_STATUS', $row[5]);
 		require('includes/comments.php');
 	}

@@ -12,13 +12,13 @@ $queryT .= "ORDER BY `date` ASC, `id` ASC";
 if(!$sqlT = mysql_query($queryT)) throw new Exception('mysql');
 
 while($rowT = mysql_fetch_row($sqlT)) {
-		static $c = 0;
-		$c++;
-		$rowsT[$c] = $rowT;
-		$rowsT[$c][3] = htmlspecialchars($rowsT[$c][3]);
-		$rowsT[$c][4] = htmlspecialchars($rowsT[$c][4]);
-		$rowsT[$c][5] = htmlspecialchars($rowsT[$c][5]);
-		$rowsT[$c][6] = htmlspecialchars($rowsT[$c][6]);
+	static $c = 0;
+	$c++;
+	$rowsT[$c] = $rowT;
+	$rowsT[$c][3] = htmlspecialchars($rowsT[$c][3]);
+	$rowsT[$c][4] = htmlspecialchars($rowsT[$c][4]);
+	$rowsT[$c][5] = htmlspecialchars($rowsT[$c][5]);
+	$rowsT[$c][6] = htmlspecialchars($rowsT[$c][6]);
 }
 
 /*
@@ -29,7 +29,7 @@ while($rowT = mysql_fetch_row($sqlT)) {
  * 	[3]	title
  * 	[4]	url
  * 	[5]	blog_name
- * 	[6]	expert
+ * 	[6]	excerpt
  * 	[7]	date
  * 	[8]	approved
  */

@@ -12,9 +12,9 @@ CREATE TABLE `entries` (
   `content` longtext,
   `date` int(11) unsigned,
   `mini` enum('y','n') default 'n',
-  `status` enum('v','r','h') default 'v',
+  `status` enum('v','d','h') default 'v',
   `comments` enum('y','n','c') default 'y',
-  `trackback` enum('y','n') default 'y',
+  `trackbacks` enum('y','n') default 'y',
   PRIMARY KEY (`id`),
   KEY `slug` (`slug`)
 ) character set utf8 collate utf8_unicode_ci;
@@ -24,9 +24,9 @@ CREATE TABLE `pages` (
   `slug` varchar(255),
   `title` varchar(255),
   `content` longtext,
-  `status` enum('v','r','h') default 'v',
+  `status` enum('v','d','h') default 'v',
   `comments` enum('y','n','c') default 'n',
-  `trackback` enum('y','n') default 'n',
+  `trackbacks` enum('y','n') default 'n',
   PRIMARY KEY (`id`),
   KEY `slug` (`slug`)
 ) character set utf8 collate utf8_unicode_ci;
@@ -55,7 +55,7 @@ CREATE TABLE `trackbacks` (
   `title` varchar(255),
   `url` varchar(255),
   `blog_name` varchar(255),
-  `expert` longtext,
+  `excerpt` longtext,
   `date` int(11) unsigned,
   `approved` enum('y','n') default 'n',
   PRIMARY KEY (`id`),

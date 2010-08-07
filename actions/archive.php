@@ -7,10 +7,9 @@
 $TITLE = 'Archivo'.S_TITLE.TITLE;
 
 $query  = "SELECT `id`,`slug`,`title`,`date`";
-$query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%m') AS `mm`";
-$query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%y') AS `yy`";
+$query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%m/%y') AS `mm/yy`";
 $query .= " FROM `".DB_PREFIX."entries`";
-$query .= " WHERE `status` = 'v'"; # Entradas solo visibles
+$query .= " WHERE `status` = 'v'";
 $query .= " ORDER BY `date` DESC";
 if(!$sql = mysql_query($query)) throw new Exception('mysql');
 
@@ -23,11 +22,8 @@ if($totalEntries == 0) {
 	$c = -1;
 	while($row = mysql_fetch_row($sql)) {
 		$c++;
-		$rows[$c][0] = $row[0];
-		$rows[$c][1] = $row[1];
-		$rows[$c][2] = htmlspecialchars($row[2]);
-		$rows[$c][3] = $row[3];
-		$rows[$c][4] = $row[4].'-'.$row[5];
+		$rows[$c] = $row;
+		$rows[$c][2] = htmlspecialchars($rows[$c][2]);
 		if($c == 0) {
 			$rows[$c][5] = true; # Open
 		}
@@ -52,7 +48,7 @@ require('view/archive.php');
  * 	[1]	slug
  * 	[2]	title
  * 	[3]	date
- * 	[4]	mm-yy
+ * 	[4]	mm/yy
  * 	[5]	Abrir bloque
  * 	[6]	Cerrar bloque
  */

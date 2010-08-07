@@ -13,8 +13,10 @@ $_ROUTES = array(
 	'ar'=>array('archive.html','a=archive'),
 	'fe'=>array('feed/entries.xml','a=feed-entries'),
 	'fc'=>array('feed/comments.xml','a=feed-comments'),
-	'te'=>array('%1%-{2}/trackback','a=trackback&id={1}&slug={2}'),
-	'tp'=>array('p-{1}/trackback','a=trackback&p={1}'),
+	'ce'=>array('feed/%1%-{2}.xml','a=feed-post&id={1}&slug={2}&type=e'),
+	'cp'=>array('feed/p-{1}.xml','a=feed-post&p={1}&type=p'),
+	'te'=>array('%1%-{2}/trackback','a=trackback&id={1}&slug={2}&type=e'),
+	'tp'=>array('p-{1}/trackback','a=trackback&p={1}&type=p'),
 	'ca'=>array('captcha-{1}.png','a=captcha&cid={1}')
 );
 

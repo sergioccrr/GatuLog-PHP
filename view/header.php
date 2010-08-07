@@ -8,6 +8,9 @@
 <link rel="shortcut icon" href="<?php echo BASE_STATIC; ?>images/favicon.png" />
 <link rel="alternate" type="application/rss+xml" title="Entradas" href="<?php echo _u('fe'); ?>" />
 <link rel="alternate" type="application/rss+xml" title="Comentarios" href="<?php echo _u('fc'); ?>" />
+<?php if(isset($FEED)) { ?>
+<link rel="alternate" type="application/rss+xml" title="Comentarios de esta <?php echo (PARENT_TYPE == 'e') ? 'entrada' : 'página' ?>" href="<?php echo $FEED; ?>" />
+<?php } ?>
 <script type="text/javascript" src="<?php echo BASE_STATIC; ?>files/general.js"></script>
 </head>
 <body>
@@ -30,6 +33,9 @@
 	<ul>
 		<li class="li_feed"><a href="<?php echo _u('fe'); ?>">Entradas</a></li>
 		<li class="li_feed"><a href="<?php echo _u('fc'); ?>">Comentarios</a></li>
+		<?php if(isset($FEED)) { ?>
+		<li class="li_feed"><a href="<?php echo $FEED; ?>">Comentarios de esta <?php echo (PARENT_TYPE == 'e') ? 'entrada' : 'página' ?></a></li>
+		<?php } ?>
 	</ul>
 	</div>
 	<br />

@@ -14,7 +14,7 @@ $query .= " ON c.`parenttype` = 'e' AND c.`parentid` = e.`id`";
 $query .= " AND e.`comments` <> 'n'"; # Entradas con comentarios visibles
 $query .= " AND c.`status` <> 'h'"; # Comentarios solo visibles
 $query .= " WHERE e.`id` = '{$id}'";
-if(!empty($slug)) $query .= " AND e.`slug` = '{$slug}'";
+$query .= " AND e.`slug` = '{$slug}'";
 $query .= " AND e.`status` = 'v'"; # Entradas solo visibles
 $query .= " GROUP BY e.`id`";
 if(!$sql = mysql_query($query)) throw new Exception('mysql');
@@ -35,6 +35,7 @@ if(mysql_num_rows($sql) == 0) {
 	define('PARENT_TYPE', 'e');
 
 	if($row[7] != 'n') {
+		$FEED = _u('ce', $id, $slug);
 		define('COMMENTS_STATUS', $row[7]);
 		require('includes/comments.php');
 	}
