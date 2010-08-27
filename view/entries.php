@@ -2,7 +2,8 @@
 
 <?php if(isset($NoEntries)) { ?>
 <div class="entry">
-	<p>No hay entradas.</p>
+	<h2>Atención</h2>
+	<p>Este blog no tiene nada publicado aún, vuelve más tarde.</p>
 </div>
 <?php } else { ?>
 	<?php for($c = 0; $c <= $totalFor; $c++) { ?>

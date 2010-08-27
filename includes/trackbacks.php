@@ -11,8 +11,8 @@ $queryT .= "AND `parenttype` = '".PARENT_TYPE."' "; # Trackbacks de entradas o p
 $queryT .= "ORDER BY `date` ASC, `id` ASC";
 if(!$sqlT = mysql_query($queryT)) throw new Exception('mysql');
 
+$c = -1;
 while($rowT = mysql_fetch_row($sqlT)) {
-	static $c = 0;
 	$c++;
 	$rowsT[$c] = $rowT;
 	$rowsT[$c][3] = htmlspecialchars($rowsT[$c][3]);
@@ -20,6 +20,7 @@ while($rowT = mysql_fetch_row($sqlT)) {
 	$rowsT[$c][5] = htmlspecialchars($rowsT[$c][5]);
 	$rowsT[$c][6] = htmlspecialchars($rowsT[$c][6]);
 }
+$totalForT = count($rowsT) - 1;
 
 /*
  * rowsT[]		-	Array con los trackbacks

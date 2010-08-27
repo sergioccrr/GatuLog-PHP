@@ -34,6 +34,7 @@ function format($str, $type='') {
 		$tmp->attribute('link', '<a href="\\1">\\2</a>');
 		$tmp->attribute('acronym', '<acronym title="\\1">\\2</acronym>');
 		$tmp->tag('center', '<div align="center">\\1</div>');
+		$tmp->attribute('color', '<font color="\\1">\\2</font> ');
 	} elseif($type == 'c') {
 		$tmp->parse('#https?://[^.\s]+\.[^\s]+#ix', '<a href="\\0" target="_blank">\\0</a>');
 		$tmp->parse('#(\s|\A)\#([0-9]+)#', '<a href="#comment-\\2">\\0</a>');
@@ -69,4 +70,22 @@ function trackbackXML($error=false, $message='') {
 		echo "\t<error>0</error>\n";
 	}
 	echo "</response>";
+}
+
+# Funciones para generar / comprobar token (Anti doble post y anti CSRF)
+function gToken($key='') {
+	if(empty($key)) return null;
+	$token = md5(uniqid(rand(), true));
+	$_SESSION[$key] = $token;
+	return $token;
+}
+function cToken($key='', $get=false) {
+	if(empty($key)) return null;
+	$token = ($get === true) ? $_GET['token'] : $_POST['token'];
+	if(empty($_SESSION[$key]) || $_SESSION[$key] != $token) {
+		return false;
+	} else {
+		$_SESSION[$key] = '';
+		return true;
+	}
 }

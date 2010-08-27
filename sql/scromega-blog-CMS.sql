@@ -44,6 +44,7 @@ CREATE TABLE `comments` (
   `ip` varchar(100),
   `useragent` longtext,
   `status` enum('v','h','n') default 'n',
+  `meta_value` longtext,
   PRIMARY KEY (`id`),
   KEY `parentid` (`parentid`)
 ) character set utf8 collate utf8_unicode_ci;

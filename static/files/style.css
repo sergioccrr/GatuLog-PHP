@@ -6,6 +6,10 @@
  * http://cafeina.ladybenko.net/?p=310
  * http://cafeina.ladybenko.net/?p=23
  *
+ * Colour palette based on:
+ * XGF Bezerik theme. http://bezerik.es/me
+ * http://xyberneticos.com/index.php/2007/10/19/resaltar-mensajes-mediante-css/
+ *
  * Pagination based on:
  * http://mis-algoritmos.com/some-styles-for-your-pagination
  *
@@ -185,6 +189,26 @@ pre.code {
 	background-color: #F1F4F6;
 }
 
+/* Messages */
+.MsgError {
+	background: #FFEAE0 url('../images/exclamation.png') center no-repeat;
+	background-position: 15px 50%;
+	text-align: left;
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #FBAB95;
+	border-bottom: 2px solid #FBAB95;
+	color: #000000;
+}
+.MsgInfo {
+	background: #E7F9F8 url('../images/information.png') center no-repeat;
+	background-position: 15px 50%;
+	text-align: left;
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #B5D4FE;
+	border-bottom: 2px solid #B5D4FE;
+	color: #000000;
+}
+
 /* Comments (General) */
 hr.separator {
 	width: 95%;
@@ -233,21 +257,21 @@ hr.separator {
 	margin-left: 10px;
 }
 
-/* Comment */
-label, input {
+/* Form Comment */
+.formComment label, .formComment input {
 	display: block;
 	float: left;
 	margin-bottom: 10px;
 }
-label {
+.formComment label {
 	text-align: right;
 	width: 95px;
 	padding-right: 20px;
 }
-form br {
+form.formComment br {
 	clear: left;
 }
-.fbutton {
+.formComment .fbutton {
 	margin-left: 265px;
 }
 

@@ -24,14 +24,15 @@ function _u() {
 	global $_ROUTES;
 	$args = func_get_args();
 	if(array_key_exists($args[0], $_ROUTES)) {
-		if(defined('BASE')) $url = BASE;
-		if(REWRITE != 'On') $url .= 'index.php/';
+		$url = '';
+		if(defined('BASE')) $url .= BASE;
+		if(!defined('REWRITE') || !(REWRITE === true)) $url .= 'index.php/';
 		$url .= preg_replace("!(%|{)([0-9]+)(%|})!e", '$args[\\2]', $_ROUTES[$args[0]][0]);
 		return $url;
 	}
 }
 
-if(defined('REWRITE') && REWRITE == 'On') {
+if(defined('REWRITE') && REWRITE === true) {
 	$_ROUTE = urldecode(substr($_SERVER['REQUEST_URI'], 1));
 } else {
 	$_ROUTE = urldecode(substr($_SERVER['PATH_INFO'], 1));

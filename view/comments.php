@@ -10,7 +10,7 @@
 	<?php } ?>
 
 	<?php if(!isset($NoComments)) { ?>
-		<?php for($c = 1; $c <= count($rowsC); $c++) { ?>
+		<?php for($c = 0; $c <= $totalForC; $c++) { ?>
 		<div class="comment"><a name="comment-<?php echo $rowsC[$c][3]; ?>"></a>
 			<div class="cavatar"><img src="http://www.gravatar.com/avatar/<?php echo $rowsC[$c][5]; ?>?s=54&amp;d=<?php echo BASE_STATIC; ?>images/no-avatar.png" alt="" width="54" height="54" /></div>
 			<div class="ccontent">
@@ -29,19 +29,27 @@
 		<a name="comentar"></a>
 		<h4>Comentar</h4>
 
-		<?php if($errorMsg == 1) { ?>
-		<p>Se ha producido un error. Probablemente has reenviado por error el formulario.</p>
+		<?php if($cMsg == 1) { ?>
+		<p class="MsgError">Debes rellenar todos los campos.</p>
 		<?php } ?>
 
-		<?php if($errorMsg == 2) { ?>
-		<p>El código de seguridad introducido no es valido. Prueba de nuevo.</p>
+		<?php if($cMsg == 2) { ?>
+		<p class="MsgError">Se ha producido un error. Probablemente has reenviado por error el formulario.</p>
 		<?php } ?>
 
-		<?php if($errorMsg == 3) { ?>
-		<p>Debes rellenar todos los campos.</p>
+		<?php if($cMsg == 3) { ?>
+		<p class="MsgError">El código de seguridad introducido no es válido. Prueba de nuevo.</p>
 		<?php } ?>
 
-		<form name="comment" method="post" action="<?php echo $form['action']; ?>#comentar">
+		<?php if($cMsg == 4) { ?>
+		<p class="MsgError">Se ha producido un error y no se ha podido guardar el comentario. Prueba a enviar el comentario de nuevo.</p>
+		<?php } ?>
+
+		<?php if($cMsg == 5) { ?>
+		<p class="MsgInfo">El comentario ha sido insertado con éxito.</p>
+		<?php } ?>
+
+		<form name="comment" method="post" action="<?php echo $form['action']; ?>#comentar" class="formComment">
 		<label for="nick">Nick:</label>
 		<input type="text" id="nick" name="nick" value="<?php echo $form['nick']; ?>" /><br />
 		<label for="email">Email:</label>
@@ -51,7 +59,7 @@
 		<label for="content">Comentario:</label>
 		<textarea id="content" name="content" cols="50" rows="10"><?php echo $form['content']; ?></textarea><br />
 		<label for="captcha">C. seguridad:</label>
-		<input type="text" id="captcha" name="captcha" size="10" />&nbsp;<img src="<?php echo _u('ca', $cid); ?>" alt="" /> Introduce los caracteres de la imagen en el campo.<br />
+		<input type="text" id="captcha" name="captcha" size="10" />&nbsp;<img src="<?php echo $form['captcha']; ?>" alt="" /> Introduce los caracteres de la imagen en el campo.<br />
 		<label for="remember">¿Recordarme?</label>
 		<input type="checkbox" id="remember" name="remember"<?php echo $form['remember']; ?> />&nbsp;Recordar tus datos para futuras visitas.<br />
 		<input type="hidden" name="token" value="<?php echo $form['token']; ?>" />

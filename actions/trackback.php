@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST' && !isset($pid)) {
 	require('actions/404.php');
 } elseif($_SERVER['REQUEST_METHOD'] != 'POST' && isset($pid)) {
 	# Petición GET - Existe la entrada/página
-	$tmp  = ($_GET['type'] == 'e') ? _u('e', $id, $slug) : _u('p', $p);
+	$tmp = ($_GET['type'] == 'e') ? _u('e', $id, $slug) : _u('p', $p);
 	header('Location: '.$tmp);
 	die();
 } elseif($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($pid)) {

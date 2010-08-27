@@ -2,11 +2,10 @@
 
 <div class="entry">
 <h2>Archivo</h2>
-<p>Entradas ordenadas cronológicamente.</p>
-
+<p>Todas las entradas de este blog ordenadas cronológicamente.</p>
 
 <?php if(isset($NoEntries)) { ?>
-	<p>No hay entradas.</p>
+	<p class="MsgInfo">Aún no hay entradas que mostrar.</p>
 <?php } else { ?>
 	<?php for($c = 0; $c <= $totalFor; $c++) { ?>
 		<?php if(isset($rows[$c][5])) { ?>
