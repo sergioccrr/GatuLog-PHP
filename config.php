@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 # === Timezone ===
 date_default_timezone_set('Europe/Madrid');
@@ -15,7 +11,7 @@ define('DB_NAME', 'blog');	# Base de datos
 define('DB_PREFIX', '');	# Prefijo tablas - Dejar en blanco si no se va a usar
 
 # === General ===
-define('TITLE', 'scromega blog CMS');	# Titulo
+define('TITLE', 'GatuLog PHP');	# Titulo
 define('S_TITLE', ' :: ');	# Separador titulo
 define('DESCRIPTION', 'Blog de prueba.');	# Descripción
 define('BASE', 'http://domain.com/');	# URL base - Con barra (/) al final

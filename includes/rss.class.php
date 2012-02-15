@@ -1,10 +1,4 @@
 <?php
-/*
- *		RSS Class
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- *
- *		Part of scromega blog CMS
- */
 
 class RSS {
 	private $title, $link, $description, $items = array();

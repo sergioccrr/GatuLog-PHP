@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 $_GET['type'] = txtval($_GET['type']);
 
@@ -24,7 +20,7 @@ if(isset($p)) {
 	$query .= " AND `id` = '{$id}'";
 	$query .= " AND `slug` = '{$slug}'";
 }
-if(!$sql = mysql_query($query)) throw new Exception('mysql');
+if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) != 0) {
 	$pid = mysql_result($sql, 0, 0);

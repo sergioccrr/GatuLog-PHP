@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 $_GET['type'] = txtval($_GET['type']);
 
@@ -24,7 +20,7 @@ if(isset($p)) {
 	$query .= " AND `id` = '{$id}'";
 	$query .= " AND `slug` = '{$slug}'";
 }
-if(!$sql = mysql_query($query)) throw new Exception('mysql');
+if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) == 0) {
 	# Si no existe la entrada/página
@@ -46,7 +42,7 @@ if(mysql_num_rows($sql) == 0) {
 	$queryC .= " AND `parentid` = '{$pid}'";
 	$queryC .= " AND `status` <> 'h'";
 	$queryC .= " ORDER BY `order` DESC";
-	if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql');
+	if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql-no');
 
 	if(mysql_num_rows($sqlC) != 0) {
 		# Si hay comentarios

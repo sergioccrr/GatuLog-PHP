@@ -1,15 +1,11 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 $queryT  = "SELECT * ";
 $queryT .= "FROM `".DB_PREFIX."trackbacks` ";
 $queryT .= "WHERE `parentid` = '{$row[0]}' "; # Trackbacks de esta entrada o pagina
 $queryT .= "AND `parenttype` = '".PARENT_TYPE."' "; # Trackbacks de entradas o paginas
 $queryT .= "ORDER BY `date` ASC, `id` ASC";
-if(!$sqlT = mysql_query($queryT)) throw new Exception('mysql');
+if(!$sqlT = mysql_query($queryT)) throw new Exception('MySQL');
 
 $c = -1;
 while($rowT = mysql_fetch_row($sqlT)) {

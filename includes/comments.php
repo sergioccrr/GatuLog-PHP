@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 ########################################################################
 #
@@ -19,7 +15,7 @@ $rid = 'remember';
 if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 
 	if(!isset($_POST['remember'])) {
-		setcookie($rid, '', time()-60*60*24*100, "/");
+		setcookie($rid, '', time()-60*60*24*100, '/');
 		$_COOKIE[$rid] = '';
 	}
 
@@ -75,7 +71,7 @@ $queryC .= "WHERE `parentid` = '{$row[0]}' "; # Comentarios de esta entrada o pa
 $queryC .= "AND `parenttype` = '".PARENT_TYPE."' "; # Comentarios de entradas o paginas
 $queryC .= "AND `status` <> 'h' "; # Comentarios no ocultos
 $queryC .= "ORDER BY `order` ASC";
-if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql');
+if(!$sqlC = mysql_query($queryC)) throw new Exception('MySQL');
 
 $totalC = mysql_num_rows($sqlC);
 if($totalC == 0) {
@@ -103,7 +99,7 @@ if($totalC == 0) {
  * 	[2]	parenttype
  * 	[3]	order
  * 	[4]	nick
- * 	[5]	email (md5)
+ * 	[5]	email hash (md5)
  * 	[6]	web
  * 	[7]	content
  * 	[8]	date

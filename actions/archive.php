@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 $TITLE = 'Archivo'.S_TITLE.TITLE;
 
@@ -11,7 +7,7 @@ $query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%m/%y') AS `mm/yy`";
 $query .= " FROM `".DB_PREFIX."entries`";
 $query .= " WHERE `status` = 'v'";
 $query .= " ORDER BY `date` DESC";
-if(!$sql = mysql_query($query)) throw new Exception('mysql');
+if(!$sql = mysql_query($query)) throw new Exception('MySQL');
 
 $totalEntries = mysql_num_rows($sql);
 if($totalEntries == 0) {

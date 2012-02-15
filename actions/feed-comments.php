@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 require('includes/rss.class.php');
 
@@ -28,7 +24,7 @@ $query .= " AND p.`status` = 'v'";
 $query .= ")";
 $query .= " ORDER BY `sort` DESC";
 $query .= " LIMIT 10";
-if(!$sql = mysql_query($query)) throw new Exception('mysql');
+if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) != 0) {
 	# Si hay comentarios

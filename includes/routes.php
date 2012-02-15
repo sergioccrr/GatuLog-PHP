@@ -1,10 +1,4 @@
 <?php
-/*
- *		Routing System
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- *
- *		Part of scromega blog CMS
- */
 
 $_ROUTES = array(
 	'a'=>array('page-%1%.html','a=entries&page={1}'),
@@ -26,17 +20,18 @@ function _u() {
 	if(array_key_exists($args[0], $_ROUTES)) {
 		$url = '';
 		if(defined('BASE')) $url .= BASE;
-		if(!defined('REWRITE') || !(REWRITE === true)) $url .= 'index.php/';
+		if(!defined('REWRITE') || REWRITE !== true) $url .= 'index.php/';
 		$url .= preg_replace("!(%|{)([0-9]+)(%|})!e", '$args[\\2]', $_ROUTES[$args[0]][0]);
 		return $url;
 	}
 }
 
 if(defined('REWRITE') && REWRITE === true) {
-	$_ROUTE = urldecode(substr($_SERVER['REQUEST_URI'], 1));
+	$_ROUTE = $_SERVER['REQUEST_URI'];
 } else {
-	$_ROUTE = urldecode(substr($_SERVER['PATH_INFO'], 1));
+	$_ROUTE = $_SERVER['PATH_INFO'];
 }
+$_ROUTE = substr(urldecode($_ROUTE), 1);
 
 foreach($_ROUTES as $k=>$v) {
 	$pattern = preg_replace("!%(.*?)%!", '([0-9]+)', $v[0]);

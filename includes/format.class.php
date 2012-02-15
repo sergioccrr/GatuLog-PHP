@@ -1,10 +1,4 @@
 <?php
-/*
- *		format Class
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- *
- *		Part of scromega blog CMS
- */
 
 class format {
 	protected $str, $code, $list, $patterns, $replacements;

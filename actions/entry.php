@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 $id = intval($_GET['id']);
 $slug = txtval($_GET['slug']);
@@ -17,7 +13,7 @@ $query .= " WHERE e.`id` = '{$id}'";
 $query .= " AND e.`slug` = '{$slug}'";
 $query .= " AND e.`status` = 'v'"; # Entradas solo visibles
 $query .= " GROUP BY e.`id`";
-if(!$sql = mysql_query($query)) throw new Exception('mysql');
+if(!$sql = mysql_query($query)) throw new Exception('MySQL');
 
 if(mysql_num_rows($sql) == 0) {
 	# Si no existe la entrada

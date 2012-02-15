@@ -1,8 +1,4 @@
 <?php
-/*
- *		scromega blog CMS
- *		Sergio Cruz aka scromega (scr.omega at gmail dot com) http://scromega.net
- */
 
 $p = txtval($_GET['p']);
 
@@ -16,7 +12,7 @@ $query .= " AND c.`status` <> 'h'"; # Comentarios no ocultos
 $query .= " WHERE p.`slug` = '{$p}'";
 $query .= " AND p.`status` = 'v'"; # Paginas solo visibles
 $query .= " GROUP BY p.`id`";
-if(!$sql = mysql_query($query)) throw new Exception('mysql');
+if(!$sql = mysql_query($query)) throw new Exception('MySQL');
 
 if(mysql_num_rows($sql) == 0) {
 	# Si no existe la pagina
