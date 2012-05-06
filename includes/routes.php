@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_ROUTES) || empty($_ROUTES)) throw new Exception('Failure routes');
+if(!isset($_ROUTES) || empty($_ROUTES)) die('Failure routes.');
 
 function _u() {
 	global $_ROUTES;

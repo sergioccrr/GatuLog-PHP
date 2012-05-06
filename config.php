@@ -16,7 +16,7 @@ define('S_TITLE', ' :: ');	# Separador titulo
 define('DESCRIPTION', 'Blog de prueba.');	# Descripción
 define('BASE', 'http://domain.com/');	# URL base - Con barra (/) al final
 define('BASE_STATIC', 'http://domain.com/static/');	# URL base de los archivos estáticos - Con barra (/) al final
-define('REWRITE', true);	# Mod Rewrite
+define('REWRITE', false);	# Rewrite
 
 # === Paginación ===
 define('P_LIMIT', 4);	# Entradas por pagina

@@ -11,7 +11,7 @@ require('includes/routes.php');
 try {
 
 	$TITLE = TITLE;
-	$LINK = new MyDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	$DB = new MyDB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 	$act = basename($_GET['a']);
 	if(empty($act) && empty($_ROUTE)) $act = 'entries';
