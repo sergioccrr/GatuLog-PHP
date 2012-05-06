@@ -26,3 +26,5 @@ imagecenteredstring($image, 5, $str, $color2);
 imagepng($image);
 
 die();
+
+?>

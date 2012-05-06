@@ -1,7 +1,7 @@
 <?php
 
 $id = intval($_GET['id']);
-$slug = txtval($_GET['slug']);
+$slug = $_GET['slug'];
 
 $query  = "SELECT e.*,COUNT(c.`id`)";
 $query .= " FROM `".DB_PREFIX."entries` e";
@@ -9,11 +9,11 @@ $query .= " LEFT JOIN `".DB_PREFIX."comments` c";
 $query .= " ON c.`parenttype` = 'e' AND c.`parentid` = e.`id`";
 $query .= " AND e.`comments` <> 'n'"; # Entradas con comentarios visibles
 $query .= " AND c.`status` <> 'h'"; # Comentarios solo visibles
-$query .= " WHERE e.`id` = '{$id}'";
-$query .= " AND e.`slug` = '{$slug}'";
+$query .= " WHERE e.`id` = '%s'";
+$query .= " AND e.`slug` = '%s'";
 $query .= " AND e.`status` = 'v'"; # Entradas solo visibles
 $query .= " GROUP BY e.`id`";
-if(!$sql = mysql_query($query)) throw new Exception('MySQL');
+$sql = $DB->query($query, $id, $slug);
 
 if(mysql_num_rows($sql) == 0) {
 	# Si no existe la entrada
@@ -58,3 +58,5 @@ if(mysql_num_rows($sql) == 0) {
  * 	[9]	number of comments
  * part		-	Array con el contenido segmentado
  */
+
+?>

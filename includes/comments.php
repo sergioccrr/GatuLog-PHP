@@ -20,9 +20,9 @@ if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 	}
 
 	try {
-		$_POST['nick'] = trim(txtval($_POST['nick']));
-		$_POST['email'] = trim(txtval($_POST['email']));
-		$_POST['content'] = trim(txtval($_POST['content']));
+		$_POST['nick'] = trim($_POST['nick']);
+		$_POST['email'] = trim($_POST['email']);
+		$_POST['content'] = trim($_POST['content']);
 		if(empty($_POST['nick']) || empty($_POST['email']) || empty($_POST['content']))
 			throw new Exception('1');
 		if(!cToken($tid))
@@ -30,10 +30,10 @@ if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 		if(empty($_SESSION[$cid]) || $_SESSION[$cid] != $_POST['captcha'])
 			throw new Exception('3');
 
-		$_POST['web'] = ($_POST['web'] != 'http://') ? trim(txtval($_POST['web'])) : '';
+		$_POST['web'] = ($_POST['web'] != 'http://') ? trim($_POST['web']) : '';
 		$date = time();
 		$ip = ip();
-		$ua = trim(txtval($_SERVER['HTTP_USER_AGENT']));
+		$ua = trim($_SERVER['HTTP_USER_AGENT']);
 
 		if(isset($_POST['remember'])) {
 			$tmp = array($_POST['nick'], $_POST['email'], $_POST['web']);
@@ -44,14 +44,16 @@ if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 
 		$query  = "SELECT MAX(`order`) ";
 		$query .= "FROM `".DB_PREFIX."comments` ";
-		$query .= "WHERE `parentid` = '{$row[0]}' ";
-		$query .= "AND `parenttype` = '".PARENT_TYPE."'";
-		if(!$sql = mysql_query($query)) throw new Exception('4');
+		$query .= "WHERE `parentid` = '%s' ";
+		$query .= "AND `parenttype` = '%s'";
+		//if(!$sql = mysql_query($query)) throw new Exception('4');
+		$sql = $DB->query($query, $row[0], PARENT_TYPE);
 		$order = mysql_result($sql, 0, 0) + 1;
 
 		$query  = "INSERT INTO `".DB_PREFIX."comments` ";
-		$query .= "VALUES (NULL,'{$row[0]}','".PARENT_TYPE."','{$order}','{$_POST['nick']}','{$_POST['email']}','{$_POST['web']}','{$_POST['content']}','{$date}','{$ip}','{$ua}','n','')";
-		if(!$sql = mysql_query($query)) throw new Exception('4');
+		$query .= "VALUES (NULL,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','n','')";
+		//if(!$sql = mysql_query($query)) throw new Exception('4');
+		$sql = $DB->query($query, $row[0], PARENT_TYPE, $order, $_POST['nick'], $_POST['email'], $_POST['web'], $_POST['content'], $date, $ip, $ua);
 
 		$cMsg = 5;
 		unset($_POST);
@@ -67,11 +69,11 @@ if(COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 #
 $queryC  = "SELECT * ";
 $queryC .= "FROM `".DB_PREFIX."comments` ";
-$queryC .= "WHERE `parentid` = '{$row[0]}' "; # Comentarios de esta entrada o pagina
-$queryC .= "AND `parenttype` = '".PARENT_TYPE."' "; # Comentarios de entradas o paginas
+$queryC .= "WHERE `parentid` = '%s' "; # Comentarios de esta entrada o pagina
+$queryC .= "AND `parenttype` = '%s' "; # Comentarios de entradas o paginas
 $queryC .= "AND `status` <> 'h' "; # Comentarios no ocultos
 $queryC .= "ORDER BY `order` ASC";
-if(!$sqlC = mysql_query($queryC)) throw new Exception('MySQL');
+$sqlC = $DB->query($queryC, $row[0], PARENT_TYPE);
 
 $totalC = mysql_num_rows($sqlC);
 if($totalC == 0) {
@@ -132,8 +134,10 @@ if(isset($_POST['submit'])) {
 	$form['content'] = $_POST['content'];
 }
 
-$form['nick'] = htmlspecialchars(stripslashes($form['nick']));
-$form['email'] = htmlspecialchars(stripslashes($form['email']));
-$form['web'] = (empty($form['web'])) ? 'http://' : htmlspecialchars(stripslashes($form['web']));
-$form['content'] = htmlspecialchars(stripslashes($form['content']));
+$form['nick'] = htmlspecialchars($form['nick']);
+$form['email'] = htmlspecialchars($form['email']);
+$form['web'] = (empty($form['web'])) ? 'http://' : htmlspecialchars($form['web']);
+$form['content'] = htmlspecialchars($form['content']);
 if(isset($_POST['remember'])) $form['remember'] = ' checked="checked"';
+
+?>

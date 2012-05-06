@@ -7,7 +7,7 @@ $query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%m/%y') AS `mm/yy`";
 $query .= " FROM `".DB_PREFIX."entries`";
 $query .= " WHERE `status` = 'v'";
 $query .= " ORDER BY `date` DESC";
-if(!$sql = mysql_query($query)) throw new Exception('MySQL');
+$sql = $DB->query($query);
 
 $totalEntries = mysql_num_rows($sql);
 if($totalEntries == 0) {
@@ -48,3 +48,5 @@ require('view/archive.php');
  * 	[5]	Abrir bloque
  * 	[6]	Cerrar bloque
  */
+
+?>

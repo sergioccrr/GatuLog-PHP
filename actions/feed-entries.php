@@ -10,7 +10,8 @@ $query .= " WHERE `status` = 'v'";
 $query .= " ORDER BY `date` DESC, `id` DESC";
 $query .= " LIMIT ";
 $query .= P_LIMIT;
-if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
+$sql = $DB->query($query);
+//if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) != 0) {
 	# Si hay entradas
@@ -23,3 +24,5 @@ if(mysql_num_rows($sql) != 0) {
 }
 
 $rss->result();
+
+?>

@@ -1,6 +1,6 @@
 <?php
 
-$p = txtval($_GET['p']);
+$p = $_GET['p'];
 
 $query  = "SELECT p.*,COUNT(c.`id`)";
 $query .= " FROM `".DB_PREFIX."pages` p";
@@ -9,10 +9,10 @@ $query .= " ON p.`comments` <> 'n'"; # Paginas con comentarios visibles
 $query .= " AND c.`parentid` = p.`id`"; # Comentarios de esta pagina
 $query .= " AND c.`parenttype` = 'p'"; # Comentarios de paginas
 $query .= " AND c.`status` <> 'h'"; # Comentarios no ocultos
-$query .= " WHERE p.`slug` = '{$p}'";
+$query .= " WHERE p.`slug` = '%s'";
 $query .= " AND p.`status` = 'v'"; # Paginas solo visibles
 $query .= " GROUP BY p.`id`";
-if(!$sql = mysql_query($query)) throw new Exception('MySQL');
+$sql = $DB->query($query, $p);
 
 if(mysql_num_rows($sql) == 0) {
 	# Si no existe la pagina
@@ -50,3 +50,5 @@ if(mysql_num_rows($sql) == 0) {
  * 	[6]	trackback
  * 	[7]	number of comments
  */
+
+?>

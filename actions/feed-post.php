@@ -1,13 +1,11 @@
 <?php
 
-$_GET['type'] = txtval($_GET['type']);
-
 if($_GET['type'] == 'e') {
 	$id = intval($_GET['id']);
-	$slug = txtval($_GET['slug']);
+	$slug = $_GET['slug'];
 	$table = 'entries';
 } else {
-	$p = txtval($_GET['p']);
+	$p = $_GET['p'];
 	$table = 'pages';
 }
 
@@ -15,12 +13,14 @@ $query  = "SELECT `id`,`title` FROM `".DB_PREFIX."{$table}`";
 $query .= " WHERE `status` = 'v'";
 $query .= " AND `comments` <> 'n'";
 if(isset($p)) {
-	$query .= " AND `slug` = '{$p}'";
+	$query .= " AND `slug` = '%s'";
+	$sql = $DB->query($query, $p);
 } else {
-	$query .= " AND `id` = '{$id}'";
-	$query .= " AND `slug` = '{$slug}'";
+	$query .= " AND `id` = '%s'";
+	$query .= " AND `slug` = '%s'";
+	$sql = $DB->query($query, $id, $slug);
 }
-if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
+//if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) == 0) {
 	# Si no existe la entrada/página
@@ -38,11 +38,12 @@ if(mysql_num_rows($sql) == 0) {
 
 	$queryC  = "SELECT `order`,`nick`,`content`,`date`";
 	$queryC .= " FROM `".DB_PREFIX."comments`";
-	$queryC .= " WHERE `parenttype` = '{$_GET['type']}'";
-	$queryC .= " AND `parentid` = '{$pid}'";
+	$queryC .= " WHERE `parenttype` = '%s'";
+	$queryC .= " AND `parentid` = '%s'";
 	$queryC .= " AND `status` <> 'h'";
 	$queryC .= " ORDER BY `order` DESC";
-	if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql-no');
+	$sqlC = $DB->query($queryC, $_GET['type'], $pid);
+	//if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql-no');
 
 	if(mysql_num_rows($sqlC) != 0) {
 		# Si hay comentarios
@@ -58,3 +59,5 @@ if(mysql_num_rows($sql) == 0) {
 
 	$rss->result();
 }
+
+?>

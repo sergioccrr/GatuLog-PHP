@@ -1,13 +1,27 @@
 <?php
 
-$_GET['type'] = txtval($_GET['type']);
+# Función para generar la respuesta a un trackback en XML
+function trackbackXML($error=false, $message='') {
+	header('Content-Type: text/xml; charset=utf-8');
+	echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
+	echo "<response>\n";
+	if($error === true) {
+		if(empty($message))
+			$message = 'An error occured while tring to log your trackback...';
+		echo "\t<error>1</error>\n";
+		echo "\t<message>{$message}</message>\n";
+	} else {
+		echo "\t<error>0</error>\n";
+	}
+	echo "</response>";
+}
 
 if($_GET['type'] == 'e') {
 	$id = intval($_GET['id']);
-	$slug = txtval($_GET['slug']);
+	$slug = $_GET['slug'];
 	$table = 'entries';
 } else {
-	$p = txtval($_GET['p']);
+	$p = $_GET['p'];
 	$table = 'pages';
 }
 
@@ -15,12 +29,14 @@ $query  = "SELECT `id` FROM `".DB_PREFIX."{$table}`";
 $query .= " WHERE `status` = 'v'";
 $query .= " AND `comments` <> 'n'";
 if(isset($p)) {
-	$query .= " AND `slug` = '{$p}'";
+	$query .= " AND `slug` = '%s'";
+	$sql = $DB->query($query, $p);
 } else {
-	$query .= " AND `id` = '{$id}'";
-	$query .= " AND `slug` = '{$slug}'";
+	$query .= " AND `id` = '%s'";
+	$query .= " AND `slug` = '%s'";
+	$sql = $DB->query($query, $id, $slug);
 }
-if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
+//if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) != 0) {
 	$pid = mysql_result($sql, 0, 0);
@@ -39,19 +55,22 @@ if($_SERVER['REQUEST_METHOD'] != 'POST' && !isset($pid)) {
 	trackbackXML(true, 'I really need a valid entry for this to work');
 } elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
 	# Petición POST - Existe la entrada/página
-	$title = trim(txtval($_POST['title']));
-	$url = trim(txtval($_POST['url']));
-	$name = trim(txtval($_POST['blog_name']));
-	$excerpt = trim(txtval($_POST['excerpt']));
+	$title = trim($_POST['title']);
+	$url = trim($_POST['url']);
+	$name = trim($_POST['blog_name']);
+	$excerpt = trim($_POST['excerpt']);
 	$time = time();
 	if(empty($url)) {
 		trackbackXML(true, 'You must include a URL');
 	} else {
-		$query = "INSERT INTO `".DB_PREFIX."trackbacks` VALUES (NULL , '{$pid}', '{$_GET['type']}', '{$title}', '{$url}', '{$name}', '{$excerpt}', '{$time}', 'n')";
-		if($sql = mysql_query($query)) {
+		$query = "INSERT INTO `".DB_PREFIX."trackbacks` VALUES (NULL , '%s', '%s', '%s', '%s', '%s', '%s', '%s', 'n')";
+		try {
+			$sql = $DB->query($query, $pid, $_GET['type'], $title, $url, $name, $excerpt, $time);
 			trackbackXML();
-		} else {
+		} catch(MyDBException $e) {
 			trackbackXML(true);
 		}
 	}
 }
+
+?>

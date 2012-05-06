@@ -6,7 +6,7 @@ if(empty($page)) $page = 1;
 $query  = "SELECT COUNT(1)";
 $query .= " FROM `".DB_PREFIX."entries`";
 $query .= " WHERE `status` = 'v'"; # Entradas solo visibles
-if(!$sql = mysql_query($query)) throw new Exception('MySQL');
+$sql = $DB->query($query);
 
 $totalEntries = mysql_result($sql, 0, 0);
 if($totalEntries == 0) {
@@ -28,7 +28,7 @@ if($totalEntries == 0) {
 	$query .= ($page * P_LIMIT) - P_LIMIT;
 	$query .= ", ";
 	$query .= P_LIMIT;
-	if(!$sql = mysql_query($query)) throw new Exception('MySQL');
+	$sql = $DB->query($query);
 
 	if(mysql_num_rows($sql) == 0) {
 		# No existe la pagina
@@ -75,3 +75,5 @@ if($totalEntries == 0) {
  * totalPages	-	Numero total de paginas
  * pages[]		-	Array con la paginación
  */
+
+?>

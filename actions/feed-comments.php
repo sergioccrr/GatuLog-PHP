@@ -24,7 +24,8 @@ $query .= " AND p.`status` = 'v'";
 $query .= ")";
 $query .= " ORDER BY `sort` DESC";
 $query .= " LIMIT 10";
-if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
+$sql = $DB->query($query);
+//if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
 if(mysql_num_rows($sql) != 0) {
 	# Si hay comentarios
@@ -40,3 +41,5 @@ if(mysql_num_rows($sql) != 0) {
 }
 
 $rss->result();
+
+?>

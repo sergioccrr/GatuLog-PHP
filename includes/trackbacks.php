@@ -2,10 +2,10 @@
 
 $queryT  = "SELECT * ";
 $queryT .= "FROM `".DB_PREFIX."trackbacks` ";
-$queryT .= "WHERE `parentid` = '{$row[0]}' "; # Trackbacks de esta entrada o pagina
-$queryT .= "AND `parenttype` = '".PARENT_TYPE."' "; # Trackbacks de entradas o paginas
+$queryT .= "WHERE `parentid` = '%s' "; # Trackbacks de esta entrada o pagina
+$queryT .= "AND `parenttype` = '%s' "; # Trackbacks de entradas o paginas
 $queryT .= "ORDER BY `date` ASC, `id` ASC";
-if(!$sqlT = mysql_query($queryT)) throw new Exception('MySQL');
+$sqlT = $DB->query($queryT, $row[0], PARENT_TYPE);
 
 $c = -1;
 while($rowT = mysql_fetch_row($sqlT)) {
@@ -30,3 +30,5 @@ $totalForT = count($rowsT) - 1;
  * 	[7]	date
  * 	[8]	approved
  */
+
+?>

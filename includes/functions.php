@@ -1,10 +1,5 @@
 <?php
 
-# Función anti SQL injection
-function txtval($str) {
-	return !get_magic_quotes_gpc() ? addslashes($str) : $str;
-}
-
 # Función para la fecha
 function _d($f, $t) {
 	$a = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
@@ -52,22 +47,6 @@ function ip() {
 	return $ip;
 }
 
-# Función para generar la respuesta a un trackback en XML
-function trackbackXML($error=false, $message='') {
-	header('Content-Type: text/xml; charset=utf-8');
-	echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
-	echo "<response>\n";
-	if($error === true) {
-		if(empty($message))
-			$message = 'An error occured while tring to log your trackback...';
-		echo "\t<error>1</error>\n";
-		echo "\t<message>{$message}</message>\n";
-	} else {
-		echo "\t<error>0</error>\n";
-	}
-	echo "</response>";
-}
-
 # Funciones para generar / comprobar token (Anti doble post y anti CSRF)
 function gToken($key='') {
 	if(empty($key)) return null;
@@ -85,3 +64,5 @@ function cToken($key='', $get=false) {
 		return true;
 	}
 }
+
+?>
