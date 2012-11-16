@@ -5,7 +5,7 @@ class format {
 	function __construct($str, $ul = false, $code = false) {
 		$this->ul = $ul;
 		$str = htmlspecialchars($str);
-		if($code) {
+		if ($code) {
 			$this->code = true;
 			$this->str = preg_split('/\[code\](.+)\[\/code\]/sU', $str, -1, PREG_SPLIT_DELIM_CAPTURE);
 		} else {
@@ -17,17 +17,17 @@ class format {
 		$str = trim($str);
 		preg_match_all('#(\*+) ([^\n]+)#', $str, $tmp);
 		$str = "<ul>\n";
-		foreach($tmp[2] as $k=>$v) {
-			$str .= '<li>'.$v;
-			if(isset($tmp[1][$k+1]) && strlen($tmp[1][$k+1]) == strlen($tmp[1][$k]) + 1) {
+		foreach ($tmp[2] as $k=>$v) {
+			$str .= sprintf('<li>%s', $v);
+			if (isset($tmp[1][$k+1]) && strlen($tmp[1][$k+1]) == strlen($tmp[1][$k]) + 1) {
 				$str .= "\n<ul>\n";
 			} else {
 				$str .= "</li>\n";
 			}
-			if(isset($tmp[1][$k+1]) && strlen($tmp[1][$k+1]) == strlen($tmp[1][$k]) - 1) {
+			if (isset($tmp[1][$k+1]) && strlen($tmp[1][$k+1]) == strlen($tmp[1][$k]) - 1) {
 				$str .= "</ul>\n</li>\n";
 			}
-			if(count($tmp[0]) -1 == $k && isset($tmp[1][$k-1]) && strlen($tmp[1][$k-1]) == strlen($tmp[1][$k]) - 1) {
+			if (count($tmp[0]) -1 == $k && isset($tmp[1][$k-1]) && strlen($tmp[1][$k-1]) == strlen($tmp[1][$k]) - 1) {
 				$str .= "</ul>\n</li>\n";
 			}
 		}
@@ -35,35 +35,35 @@ class format {
 		return $str;
 	}
 	public function html($t) {
-		foreach($t as $tt) {
+		foreach ($t as $tt) {
 			$this->patterns[] = "#\[{$tt}\](.*?)\[/{$tt}\]#s";
 			$this->replacements[] = "<{$tt}>\\1</{$tt}>";
 		}
 	}
 	public function tag($t, $r) {
-		if(!empty($t)) {
+		if (!empty($t)) {
 			$this->patterns[] = "#\[{$t}\](.*?)\[/{$t}\]#s";
 			$this->replacements[] = $r;
 		}
 	}
 	public function attribute($t, $r) {
-		if(!empty($t)) {
+		if (!empty($t)) {
 			$this->patterns[] = "#\[{$t}\=(.*?)](.*?)\[/{$t}\]#s";
 			$this->replacements[] = $r;
 		}
 	}
 	public function parse($t, $r) {
-		if(!empty($t)) {
+		if (!empty($t)) {
 			$this->patterns[] = $t;
 			$this->replacements[] = $r;
 		}
 	}
 	private function txt($str) {
-		if(!empty($this->patterns)) {
+		if (!empty($this->patterns)) {
 			$str = preg_replace($this->patterns, $this->replacements, $str);
 		}
 		$str = nl2br($str);
-		if($this->ul) {
+		if ($this->ul) {
 			$str = preg_replace_callback('#\[ul\](.*?)\[\/ul\]#sU', 'format::pul', $str);
 		}
 		return $str;
@@ -71,11 +71,11 @@ class format {
 	private function code($str) {
 		$str = htmlspecialchars_decode($str);
 		$str = highlight_string($str, true);
-		return '<pre class="code">'.$str.'</pre>';
+		return sprintf('<pre class="code">%s</pre>', $str);
 	}
 	public function result() {
-		if($this->code) {
-			for($c = 0; $c < count($this->str); $c++) {
+		if ($this->code) {
+			for ($c = 0; $c < count($this->str); $c++) {
 				$this->str[$c] = ($c % 2 == 0) ? $this->txt($this->str[$c]) : self::code($this->str[$c]);
 			}
 			return implode('', $this->str);
@@ -84,5 +84,3 @@ class format {
 		}
 	}
 }
-
-?>

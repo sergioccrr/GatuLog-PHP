@@ -1,51 +1,51 @@
-<?php if(COMMENTS_STATUS == 'y' || (COMMENTS_STATUS == 'c' && !isset($NoComments))) { ?>
+<?php if (COMMENTS_STATUS == 'y' || (COMMENTS_STATUS == 'c' && !isset($NoComments))) { ?>
 <hr class="separator" />
 <div class="entry">
 
 <a name="comentarios"></a>
 <h4>Comentarios</h4>
 
-	<?php if(isset($NoComments)) { ?>
+	<?php if (isset($NoComments)) { ?>
 		<p class="m_info">No hay comentarios. ¡Se el primero!</p>
 	<?php } ?>
 
-	<?php if(!isset($NoComments)) { ?>
-		<?php for($c = 0; $c <= $totalForC; $c++) { ?>
+	<?php if (!isset($NoComments)) { ?>
+		<?php for ($c = 0; $c <= $totalForC; $c++) { ?>
 		<div class="comment"><a name="comment-<?php echo $rowsC[$c][3]; ?>"></a>
 			<div class="cavatar"><img src="http://www.gravatar.com/avatar/<?php echo $rowsC[$c][5]; ?>?s=54&amp;d=<?php echo BASE_STATIC; ?>images/no-avatar.png" alt="" width="54" height="54" /></div>
 			<div class="ccontent">
 				<div class="cinfo">
 				<a href="#comment-<?php echo $rowsC[$c][3]; ?>">#<?php echo $rowsC[$c][3]; ?></a> <b><?php echo (empty($rowsC[$c][6])) ? $rowsC[$c][4] : "<a rel=\"nofollow\" href=\"{$rowsC[$c][6]}\" target=\"_blank\">{$rowsC[$c][4]}</a>"; ?></b> el <?php echo _d('j F Y', $rowsC[$c][8]); ?>.
-				<?php if(COMMENTS_STATUS == 'y') { ?> <span class="creply"><a href="#comentar" onclick="javascript:re('<?php echo $rowsC[$c][3]; ?>', '<?php echo $rowsC[$c][4]; ?>')">Responder</a></span><?php } ?>
+				<?php if (COMMENTS_STATUS == 'y') { ?> <span class="creply"><a href="#comentar" onclick="javascript:re('<?php echo $rowsC[$c][3]; ?>', '<?php echo $rowsC[$c][4]; ?>')">Responder</a></span><?php } ?>
 				</div>
 				<p><?php echo $rowsC[$c][7]; ?></p>
 			</div>
 		</div>
-		<?php if($c != count($rowsC)) { ?><!-- <hr /> --><?php } ?>
+		<?php if ($c != count($rowsC)) { ?><!-- <hr /> --><?php } ?>
 		<?php } ?>
 	<?php } ?>
 
-	<?php if(COMMENTS_STATUS == 'y') { ?>
+	<?php if (COMMENTS_STATUS == 'y') { ?>
 		<a name="comentar"></a>
 		<h4>Comentar</h4>
 
-		<?php if($cMsg == 1) { ?>
+		<?php if ($cMsg == 1) { ?>
 		<p class="MsgError">Debes rellenar todos los campos.</p>
 		<?php } ?>
 
-		<?php if($cMsg == 2) { ?>
+		<?php if ($cMsg == 2) { ?>
 		<p class="MsgError">Se ha producido un error. Probablemente has reenviado por error el formulario.</p>
 		<?php } ?>
 
-		<?php if($cMsg == 3) { ?>
+		<?php if ($cMsg == 3) { ?>
 		<p class="MsgError">El código de seguridad introducido no es válido. Prueba de nuevo.</p>
 		<?php } ?>
 
-		<?php if($cMsg == 4) { ?>
+		<?php if ($cMsg == 4) { ?>
 		<p class="MsgError">Se ha producido un error y no se ha podido guardar el comentario. Prueba a enviar el comentario de nuevo.</p>
 		<?php } ?>
 
-		<?php if($cMsg == 5) { ?>
+		<?php if ($cMsg == 5) { ?>
 		<p class="MsgInfo">El comentario ha sido insertado con éxito.</p>
 		<?php } ?>
 

@@ -1,7 +1,5 @@
 <?php
 
-$TITLE = 'Error'.S_TITLE.TITLE;
+$TITLE = sprintf('Error%s%s', S_TITLE, TITLE);
 
 require('view/error.php');
-
-?>

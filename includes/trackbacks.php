@@ -1,14 +1,15 @@
 <?php
 
 $queryT  = "SELECT * ";
-$queryT .= "FROM `".DB_PREFIX."trackbacks` ";
+$queryT .= "FROM `%p_trackbacks` ";
 $queryT .= "WHERE `parentid` = '%s' "; # Trackbacks de esta entrada o pagina
 $queryT .= "AND `parenttype` = '%s' "; # Trackbacks de entradas o paginas
 $queryT .= "ORDER BY `date` ASC, `id` ASC";
 $sqlT = $DB->query($queryT, $row[0], PARENT_TYPE);
 
 $c = -1;
-while($rowT = mysql_fetch_row($sqlT)) {
+$rowsT = array();
+while ($rowT = mysql_fetch_row($sqlT)) {
 	$c++;
 	$rowsT[$c] = $rowT;
 	$rowsT[$c][3] = htmlspecialchars($rowsT[$c][3]);
@@ -30,5 +31,3 @@ $totalForT = count($rowsT) - 1;
  * 	[7]	date
  * 	[8]	approved
  */
-
-?>

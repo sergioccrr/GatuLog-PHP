@@ -3,7 +3,9 @@
 function randomText($length) {
 	$key = '';
 	$pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
-	for($i=0;$i<$length;$i++) $key .= $pattern{rand(0,35)};
+	for ($i=0;$i<$length;$i++) {
+		$key .= $pattern{rand(0,35)};
+	}
 	return $key;
 }
 
@@ -26,5 +28,3 @@ imagecenteredstring($image, 5, $str, $color2);
 imagepng($image);
 
 die();
-
-?>

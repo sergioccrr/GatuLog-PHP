@@ -15,7 +15,7 @@ function _d($f, $t) {
 function format($str, $type='') {
 	$tmp = new format($str, true, true);
 	$tmp->html(array('b','i','u','s'));
-	if($type == 'e' || $type == 'p') {
+	if ($type == 'e' || $type == 'p') {
 		$tmp->parse('#\[tex\](.*?)\[/tex\]#se', '"[img]http://chart.apis.google.com/chart?cht=tx&chl=".rawurlencode("\\1")."[/img]"');
 		$tmp->tag('img', '<img src="\\1" alt="" />');
 		$tmp->attribute('img', '<img src="\\2" alt="\\1" />');
@@ -26,10 +26,10 @@ function format($str, $type='') {
 		$tmp->attribute('acronym', '<acronym title="\\1">\\2</acronym>');
 		$tmp->tag('center', '<div align="center">\\1</div>');
 		$tmp->attribute('color', '<font color="\\1">\\2</font> ');
-	} elseif($type == 'c') {
+	} elseif ($type == 'c') {
 		$tmp->parse('#https?://[^.\s]+\.[^\s]+#ix', '<a href="\\0" target="_blank">\\0</a>');
 		$tmp->parse('#(\s|\A)\#([0-9]+)#', '<a href="#comment-\\2">\\0</a>');
-	} elseif($type == 'cf') {
+	} elseif ($type == 'cf') {
 		$tmp->parse('#https?://[^.\s]+\.[^\s]+#ix', '<a href="\\0" target="_blank">\\0</a>');
 	}
 	return $tmp->result();
@@ -37,9 +37,9 @@ function format($str, $type='') {
 
 # Función para obtener la IP
 function ip() {
-	if($_SERVER['HTTP_X_FORWARDED_FOR']) {
+	if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
 		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	} elseif($_SERVER['HTTP_CLIENT_IP']) {
+	} elseif ($_SERVER['HTTP_CLIENT_IP']) {
 		$ip = $_SERVER['HTTP_CLIENT_IP'];
 	} else {
 		$ip = $_SERVER['REMOTE_ADDR'];
@@ -49,20 +49,22 @@ function ip() {
 
 # Funciones para generar / comprobar token (Anti doble post y anti CSRF)
 function gToken($key='') {
-	if(empty($key)) return null;
+	if (empty($key)) {
+		return null;
+	}
 	$token = md5(uniqid(rand(), true));
 	$_SESSION[$key] = $token;
 	return $token;
 }
 function cToken($key='', $get=false) {
-	if(empty($key)) return null;
+	if (empty($key)) {
+		return null;
+	}
 	$token = ($get === true) ? $_GET['token'] : $_POST['token'];
-	if(empty($_SESSION[$key]) || $_SESSION[$key] != $token) {
+	if (empty($_SESSION[$key]) || $_SESSION[$key] != $token) {
 		return false;
 	} else {
 		$_SESSION[$key] = '';
 		return true;
 	}
 }
-
-?>

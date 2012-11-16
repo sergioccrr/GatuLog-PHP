@@ -1,6 +1,6 @@
 <?php
 
-if($_GET['type'] == 'e') {
+if ($_GET['type'] == 'e') {
 	$id = intval($_GET['id']);
 	$slug = $_GET['slug'];
 	$table = 'entries';
@@ -9,10 +9,10 @@ if($_GET['type'] == 'e') {
 	$table = 'pages';
 }
 
-$query  = "SELECT `id`,`title` FROM `".DB_PREFIX."{$table}`";
+$query  = "SELECT `id`,`title` FROM `%p_{$table}`";
 $query .= " WHERE `status` = 'v'";
 $query .= " AND `comments` <> 'n'";
-if(isset($p)) {
+if (isset($p)) {
 	$query .= " AND `slug` = '%s'";
 	$sql = $DB->query($query, $p);
 } else {
@@ -20,9 +20,9 @@ if(isset($p)) {
 	$query .= " AND `slug` = '%s'";
 	$sql = $DB->query($query, $id, $slug);
 }
-//if(!$sql = mysql_query($query)) throw new Exception('mysql-no');
+//if (!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
-if(mysql_num_rows($sql) == 0) {
+if (mysql_num_rows($sql) == 0) {
 	# Si no existe la entrada/página
 	require('actions/404.php');
 } else {
@@ -37,27 +37,25 @@ if(mysql_num_rows($sql) == 0) {
 	$rss = new RSS($tmp1, $tmp2, DESCRIPTION);
 
 	$queryC  = "SELECT `order`,`nick`,`content`,`date`";
-	$queryC .= " FROM `".DB_PREFIX."comments`";
+	$queryC .= " FROM `%p_comments`";
 	$queryC .= " WHERE `parenttype` = '%s'";
 	$queryC .= " AND `parentid` = '%s'";
 	$queryC .= " AND `status` <> 'h'";
 	$queryC .= " ORDER BY `order` DESC";
 	$sqlC = $DB->query($queryC, $_GET['type'], $pid);
-	//if(!$sqlC = mysql_query($queryC)) throw new Exception('mysql-no');
+	//if (!$sqlC = mysql_query($queryC)) throw new Exception('mysql-no');
 
-	if(mysql_num_rows($sqlC) != 0) {
+	if (mysql_num_rows($sqlC) != 0) {
 		# Si hay comentarios
-		while($row = mysql_fetch_row($sqlC)) {
+		while ($row = mysql_fetch_row($sqlC)) {
 			$row[1] = htmlspecialchars($row[1]);
 			$row[2] = format($row[2], 'cf');
 			$tmp1 = sprintf('Comentario de %s', $row[1]);
 			$tmp2  = ($_GET['type'] == 'e') ? _u('e', $id, $slug) : _u('p', $p);
-			$tmp2 .= '#comment-'.$row[0];
+			$tmp2 .= sprintf('#comment-%s', $row[0]);
 			$rss->item($tmp1, $tmp2, $row[2], $row[3]);
 		}
 	}
 
 	$rss->result();
 }
-
-?>

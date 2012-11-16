@@ -23,7 +23,7 @@ function _u() {
 
 if (defined('REWRITE') && REWRITE === true) {
 	$_ROUTE = $_SERVER['REQUEST_URI'];
-} elseif(isset($_SERVER['PATH_INFO'])) {
+} elseif (isset($_SERVER['PATH_INFO'])) {
 	$_ROUTE = $_SERVER['PATH_INFO'];
 } else {
 	$_ROUTE = '';
@@ -41,4 +41,3 @@ foreach ($_ROUTES as $k=>$v) {
 		$_FOUND = $k;
 	}
 }
-

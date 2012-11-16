@@ -1,10 +1,14 @@
 <?php
 
-$p = $_GET['p'];
+if (isset($_GET['p'])) {
+	$p = $_GET['p'];
+} else {
+	return require('actions/404.php');
+}
 
-$query  = "SELECT p.*,COUNT(c.`id`)";
-$query .= " FROM `".DB_PREFIX."pages` p";
-$query .= " LEFT JOIN `".DB_PREFIX."comments` c";
+$query  = "SELECT p.*, COUNT(c.`id`)";
+$query .= " FROM `%p_pages` p";
+$query .= " LEFT JOIN `%p_comments` c";
 $query .= " ON p.`comments` <> 'n'"; # Paginas con comentarios visibles
 $query .= " AND c.`parentid` = p.`id`"; # Comentarios de esta pagina
 $query .= " AND c.`parenttype` = 'p'"; # Comentarios de paginas
@@ -14,30 +18,30 @@ $query .= " AND p.`status` = 'v'"; # Paginas solo visibles
 $query .= " GROUP BY p.`id`";
 $sql = $DB->query($query, $p);
 
-if(mysql_num_rows($sql) == 0) {
+if (mysql_num_rows($sql) == 0) {
 	# Si no existe la pagina
-	require('actions/404.php');
-} else {
-	# Si existe la pagina
-	$row = mysql_fetch_row($sql);
-	$row[2] = htmlspecialchars($row[2]);
-	$row[3] = format($row[3], 'p');
-
-	define('PARENT_TYPE', 'p');
-
-	if($row[5] != 'n') {
-		$FEED = _u('cp', $p);
-		define('COMMENTS_STATUS', $row[5]);
-		require('includes/comments.php');
-	}
-
-	if($row[6] == 'y') {
-		require('includes/trackbacks.php');
-	}
-
-	$TITLE = $row[2].S_TITLE.TITLE;
-	require('view/page.php');
+	return require('actions/404.php');
 }
+
+# Si existe la pagina
+$row = mysql_fetch_row($sql);
+$row[2] = htmlspecialchars($row[2]);
+$row[3] = format($row[3], 'p');
+
+define('PARENT_TYPE', 'p');
+
+if ($row[5] != 'n') {
+	$FEED = _u('cp', $p);
+	define('COMMENTS_STATUS', $row[5]);
+	require('includes/comments.php');
+}
+
+if ($row[6] == 'y') {
+	require('includes/trackbacks.php');
+}
+
+$TITLE = sprintf('%s%s%s', $row[2], S_TITLE, TITLE);
+require('view/page.php');
 
 /*
  * row		-	Array con la pagina
@@ -50,5 +54,3 @@ if(mysql_num_rows($sql) == 0) {
  * 	[6]	trackback
  * 	[7]	number of comments
  */
-
-?>

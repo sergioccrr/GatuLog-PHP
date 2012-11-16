@@ -4,7 +4,7 @@ $TITLE = sprintf('Archivo%s%s', S_TITLE, TITLE);
 
 $query  = "SELECT `id`,`slug`,`title`,`date`";
 $query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%m/%y') AS `mm/yy`";
-$query .= " FROM `".DB_PREFIX."entries`";
+$query .= " FROM `%p_entries`";
 $query .= " WHERE `status` = 'v'";
 $query .= " ORDER BY `date` DESC";
 $sql = $DB->query($query);
