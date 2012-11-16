@@ -1,6 +1,6 @@
 <?php
 
-$TITLE = 'Archivo'.S_TITLE.TITLE;
+$TITLE = sprintf('Archivo%s%s', S_TITLE, TITLE);
 
 $query  = "SELECT `id`,`slug`,`title`,`date`";
 $query .= ",DATE_FORMAT(FROM_UNIXTIME(`date`),'%m/%y') AS `mm/yy`";
@@ -10,24 +10,24 @@ $query .= " ORDER BY `date` DESC";
 $sql = $DB->query($query);
 
 $totalEntries = mysql_num_rows($sql);
-if($totalEntries == 0) {
+if ($totalEntries == 0) {
 	# Si no hay entradas
 	$NoEntries = true;
 } else {
 	# Si hay entradas
 	$c = -1;
-	while($row = mysql_fetch_row($sql)) {
+	while ($row = mysql_fetch_row($sql)) {
 		$c++;
 		$rows[$c] = $row;
 		$rows[$c][2] = htmlspecialchars($rows[$c][2]);
-		if($c == 0) {
+		if ($c == 0) {
 			$rows[$c][5] = true; # Open
 		}
-		if(isset($p) && $rows[$c][4] != $rows[$p][4]) {
+		if (isset($p) && $rows[$c][4] != $rows[$p][4]) {
 			$rows[$p][6] = true; # Close
 			$rows[$c][5] = true; # Open
 		}
-		if($c == $totalEntries - 1) {
+		if ($c == $totalEntries - 1) {
 			$rows[$c][6] = true; # Close
 		}
 		$p = $c;
@@ -48,5 +48,3 @@ require('view/archive.php');
  * 	[5]	Abrir bloque
  * 	[6]	Cerrar bloque
  */
-
-?>

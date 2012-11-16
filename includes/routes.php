@@ -17,14 +17,16 @@ function _u() {
 	if (!defined('REWRITE') || REWRITE !== true) {
 		$url .= 'index.php/';
 	}
-	$url .= preg_replace("!(%|{)([0-9]+)(%|})!e", '$args[\\2]', $_ROUTES[$args[0]][0]);
+	$url .= preg_replace('!(%|{)([0-9]+)(%|})!e', '$args[\\2]', $_ROUTES[$args[0]][0]);
 	return $url;
 }
 
-if(defined('REWRITE') && REWRITE === true) {
+if (defined('REWRITE') && REWRITE === true) {
 	$_ROUTE = $_SERVER['REQUEST_URI'];
-} else {
+} elseif(isset($_SERVER['PATH_INFO'])) {
 	$_ROUTE = $_SERVER['PATH_INFO'];
+} else {
+	$_ROUTE = '';
 }
 $_ROUTE = urldecode($_ROUTE);
 $_ROUTE = substr($_ROUTE, 1);
