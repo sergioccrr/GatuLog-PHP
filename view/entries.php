@@ -29,7 +29,7 @@
 		</div>
 		<?php } ?>
 	<?php } ?>
-	<?php if (is_array($pages)) { ?>
+	<?php if ($pages) { ?>
 		<div class="pagination">
 		<?php echo (in_array(1, $pages)) ? '' : '<a href="'._u('a', 1).'">&lt;&lt;</a>'; ?>
 		<?php foreach ($pages as $c) { ?>

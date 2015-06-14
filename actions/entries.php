@@ -50,6 +50,7 @@ if ($totalEntries == 0) {
 		$totalFor = count($rows) - 1;
 
 		# Paginador
+		$pages = array();
 		$totalPages = ceil($totalEntries / P_LIMIT);
 		if ($totalPages != 1) {
 			for ($c = $page-P_RANGE; $c <= $page+P_RANGE; $c++) {
