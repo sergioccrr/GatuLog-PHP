@@ -9,7 +9,7 @@ $sqlT = $DB->query($queryT, $row[0], PARENT_TYPE);
 
 $c = -1;
 $rowsT = array();
-while ($rowT = mysql_fetch_row($sqlT)) {
+while ($rowT = mysqli_fetch_row($sqlT)) {
 	$c++;
 	$rowsT[$c] = $rowT;
 	$rowsT[$c][3] = htmlspecialchars($rowsT[$c][3]);

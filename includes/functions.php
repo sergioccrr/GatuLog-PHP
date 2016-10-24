@@ -16,7 +16,7 @@ function format($str, $type='') {
 	$tmp = new format($str, true, true);
 	$tmp->html(array('b','i','u','s'));
 	if ($type == 'e' || $type == 'p') {
-		$tmp->parse('#\[tex\](.*?)\[/tex\]#se', '"[img]http://chart.apis.google.com/chart?cht=tx&chl=".rawurlencode("\\1")."[/img]"');
+		//$tmp->parse('#\[tex\](.*?)\[/tex\]#se', '"[img]http://chart.apis.google.com/chart?cht=tx&chl=".rawurlencode("\\1")."[/img]"');
 		$tmp->tag('img', '<img src="\\1" alt="" />');
 		$tmp->attribute('img', '<img src="\\2" alt="\\1" />');
 		$tmp->tag('url', '<a href="\\1" target="_blank">\\1</a>');
@@ -37,6 +37,9 @@ function format($str, $type='') {
 
 # Función para obtener la IP
 function ip() {
+	return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+
+	/*
 	if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
 		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 	} elseif ($_SERVER['HTTP_CLIENT_IP']) {
@@ -45,6 +48,7 @@ function ip() {
 		$ip = $_SERVER['REMOTE_ADDR'];
 	}
 	return $ip;
+	*/
 }
 
 # Funciones para generar / comprobar token (Anti doble post y anti CSRF)

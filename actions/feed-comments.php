@@ -27,9 +27,9 @@ $query .= " LIMIT 10";
 $sql = $DB->query($query);
 //if (!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
-if (mysql_num_rows($sql) != 0) {
+if (mysqli_num_rows($sql) != 0) {
 	# Si hay comentarios
-	while ($row = mysql_fetch_row($sql)) {
+	while ($row = mysqli_fetch_row($sql)) {
 		$row[2] = htmlspecialchars($row[2]);
 		$row[6] = htmlspecialchars($row[6]);
 		$tmp1 = sprintf('Comentario de %s en "%s"', $row[2], $row[6]);

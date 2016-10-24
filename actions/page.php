@@ -18,13 +18,13 @@ $query .= " AND p.`status` = 'v'"; # Paginas solo visibles
 $query .= " GROUP BY p.`id`";
 $sql = $DB->query($query, $p);
 
-if (mysql_num_rows($sql) == 0) {
+if (mysqli_num_rows($sql) == 0) {
 	# Si no existe la pagina
 	return require('actions/404.php');
 }
 
 # Si existe la pagina
-$row = mysql_fetch_row($sql);
+$row = mysqli_fetch_row($sql);
 $row[2] = htmlspecialchars($row[2]);
 $row[3] = format($row[3], 'p');
 

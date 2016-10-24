@@ -53,7 +53,7 @@ if (COMMENTS_STATUS == 'y' && isset($_POST['submit'])) {
 		$query .= "AND `parenttype` = '%s'";
 		//if (!$sql = mysql_query($query)) throw new Exception('4');
 		$sql = $DB->query($query, $row[0], PARENT_TYPE);
-		$order = mysql_result($sql, 0, 0) + 1;
+		$order = mysqli_fetch_row($sql)[0] + 1;
 
 		$query  = "INSERT INTO `%p_comments` ";
 		$query .= "VALUES (NULL,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','n','')";
@@ -80,14 +80,14 @@ $queryC .= "AND `status` <> 'h' "; # Comentarios no ocultos
 $queryC .= "ORDER BY `order` ASC";
 $sqlC = $DB->query($queryC, $row[0], PARENT_TYPE);
 
-$totalC = mysql_num_rows($sqlC);
+$totalC = mysqli_num_rows($sqlC);
 if ($totalC == 0) {
 	# Si no hay comentarios
 	$NoComments = true;
 } else {
 	# Si hay comentarios
 	$c = -1;
-	while ($rowC = mysql_fetch_row($sqlC)) {
+	while ($rowC = mysqli_fetch_row($sqlC)) {
 		$c++;
 		$rowsC[$c] = $rowC;
 		$rowsC[$c][4] = htmlspecialchars($rowsC[$c][4]);

@@ -12,7 +12,7 @@ $query .= " FROM `%p_entries`";
 $query .= " WHERE `status` = 'v'"; # Entradas solo visibles
 $sql = $DB->query($query);
 
-$totalEntries = mysql_result($sql, 0, 0);
+$totalEntries = mysqli_fetch_row($sql)[0];
 if ($totalEntries == 0) {
 	# Si no hay entradas
 	$NoEntries = true;
@@ -34,13 +34,13 @@ if ($totalEntries == 0) {
 	$query .= P_LIMIT;
 	$sql = $DB->query($query);
 
-	if (mysql_num_rows($sql) == 0) {
+	if (mysqli_num_rows($sql) == 0) {
 		# No existe la pagina
 		require('actions/404.php');
 	} else {
 		# Existe la pagina
 		$c = -1;
-		while ($row = mysql_fetch_row($sql)) {
+		while ($row = mysqli_fetch_row($sql)) {
 			$c++;
 			$rows[$c] = $row;
 			$rows[$c][2] = htmlspecialchars($rows[$c][2]);

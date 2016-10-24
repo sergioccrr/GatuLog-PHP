@@ -37,8 +37,8 @@ if (isset($p)) {
 }
 //if (!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
-if (mysql_num_rows($sql) != 0) {
-	$pid = mysql_result($sql, 0, 0);
+if (mysqli_num_rows($sql) != 0) {
+	$pid = mysqli_fetch_row($sql)[0];
 }
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST' && !isset($pid)) {

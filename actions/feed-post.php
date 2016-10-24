@@ -22,15 +22,16 @@ if (isset($p)) {
 }
 //if (!$sql = mysql_query($query)) throw new Exception('mysql-no');
 
-if (mysql_num_rows($sql) == 0) {
+if (mysqli_num_rows($sql) == 0) {
 	# Si no existe la entrada/página
 	require('actions/404.php');
 } else {
 	# Si existe
 	require('includes/rss.class.php');
 
-	$pid = mysql_result($sql, 0, 0);
-	$title = mysql_result($sql, 0, 1);
+	$tmp = mysqli_fetch_row($sql);
+	$pid = $tmp[0];
+	$title = $tmp[1];
 	$title = htmlspecialchars($title);
 	$tmp1 = sprintf('Comentarios en "%s" de %s', $title, TITLE);
 	$tmp2 = ($_GET['type'] == 'e') ? _u('ce', $id, $slug) : _u('cp', $p);
@@ -45,9 +46,9 @@ if (mysql_num_rows($sql) == 0) {
 	$sqlC = $DB->query($queryC, $_GET['type'], $pid);
 	//if (!$sqlC = mysql_query($queryC)) throw new Exception('mysql-no');
 
-	if (mysql_num_rows($sqlC) != 0) {
+	if (mysqli_num_rows($sqlC) != 0) {
 		# Si hay comentarios
-		while ($row = mysql_fetch_row($sqlC)) {
+		while ($row = mysqli_fetch_row($sqlC)) {
 			$row[1] = htmlspecialchars($row[1]);
 			$row[2] = format($row[2], 'cf');
 			$tmp1 = sprintf('Comentario de %s', $row[1]);

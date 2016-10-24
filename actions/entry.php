@@ -15,13 +15,13 @@ $query .= " AND e.`status` = 'v'"; # Entradas solo visibles
 $query .= " GROUP BY e.`id`";
 $sql = $DB->query($query, $id, $slug);
 
-if (mysql_num_rows($sql) == 0) {
+if (mysqli_num_rows($sql) == 0) {
 	# Si no existe la entrada
 	return require('actions/404.php');
 }
 
 # Si existe la entrada
-$row = mysql_fetch_row($sql);
+$row = mysqli_fetch_row($sql);
 $row[2] = htmlspecialchars($row[2]);
 $row[3] = format($row[3], 'e');
 

@@ -9,14 +9,14 @@ $query .= " WHERE `status` = 'v'";
 $query .= " ORDER BY `date` DESC";
 $sql = $DB->query($query);
 
-$totalEntries = mysql_num_rows($sql);
+$totalEntries = mysqli_num_rows($sql);
 if ($totalEntries == 0) {
 	# Si no hay entradas
 	$NoEntries = true;
 } else {
 	# Si hay entradas
 	$c = -1;
-	while ($row = mysql_fetch_row($sql)) {
+	while ($row = mysqli_fetch_row($sql)) {
 		$c++;
 		$rows[$c] = $row;
 		$rows[$c][2] = htmlspecialchars($rows[$c][2]);
