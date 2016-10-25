@@ -1,6 +1,6 @@
 <?php
 
-require('includes/rss.class.php');
+require 'includes/rss.class.php';
 
 $tmp1 = sprintf('Comentarios de %s', TITLE);
 $rss = new RSS($tmp1, _u('fc'), DESCRIPTION);

@@ -2,11 +2,11 @@
 
 session_start();
 
-require('config.php');
-require('includes/format.class.php');
-require('includes/mydb.class.php');
-require('includes/functions.php');
-require('includes/routes.php');
+require 'config.php';
+require 'includes/format.class.php';
+require 'includes/mydb.class.php';
+require 'includes/functions.php';
+require 'includes/routes.php';
 
 try {
 
@@ -22,12 +22,12 @@ try {
 	}
 	$tmp = sprintf('actions/%s.php', $act);
 	if (file_exists($tmp)) {
-		require($tmp);
+		require $tmp;
 	} else {
-		require('actions/404.php');
+		require 'actions/404.php';
 	}
 
 } catch (Exception $e) {
 	$ERROR = $e->getMessage();
-	require('actions/error.php');
+	require 'actions/error.php';
 }

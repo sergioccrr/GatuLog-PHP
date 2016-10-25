@@ -1,9 +1,8 @@
 <?php
 
-if (isset($_GET['page'])) {
-	$page = intval($_GET['page']);
-}
-if (empty($page)) {
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+if (!$page) {
 	$page = 1;
 }
 
@@ -16,7 +15,7 @@ $totalEntries = mysqli_fetch_row($sql)[0];
 if ($totalEntries == 0) {
 	# Si no hay entradas
 	$NoEntries = true;
-	require('view/entries.php');
+	require 'view/entries.php';
 } else {
 	# Si hay entradas
 	$query  = "SELECT e.*, COUNT(c.`id`)";
@@ -36,7 +35,7 @@ if ($totalEntries == 0) {
 
 	if (mysqli_num_rows($sql) == 0) {
 		# No existe la pagina
-		require('actions/404.php');
+		require 'actions/404.php';
 	} else {
 		# Existe la pagina
 		$c = -1;
@@ -63,7 +62,7 @@ if ($totalEntries == 0) {
 		if ($page != 1) {
 			$TITLE = 'Pagina '.$page.S_TITLE.TITLE;
 		}
-		require('view/entries.php');
+		require 'view/entries.php';
 	}
 }
 

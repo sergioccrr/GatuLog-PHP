@@ -24,10 +24,10 @@ if (isset($p)) {
 
 if (mysqli_num_rows($sql) == 0) {
 	# Si no existe la entrada/página
-	require('actions/404.php');
+	require 'actions/404.php';
 } else {
 	# Si existe
-	require('includes/rss.class.php');
+	require 'includes/rss.class.php';
 
 	$tmp = mysqli_fetch_row($sql);
 	$pid = $tmp[0];

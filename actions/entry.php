@@ -1,7 +1,11 @@
 <?php
 
-$id = intval($_GET['id']);
-$slug = $_GET['slug'];
+$id = isset($_GET['id']) ? intval($_GET['id']) : false;
+$slug = isset($_GET['slug']) ? $_GET['slug'] : false;
+
+if (!$id || !$slug) {
+	return require 'actions/404.php';
+}
 
 $query  = "SELECT e.*, COUNT(c.`id`)";
 $query .= " FROM `%p_entries` e";
@@ -17,7 +21,7 @@ $sql = $DB->query($query, $id, $slug);
 
 if (mysqli_num_rows($sql) == 0) {
 	# Si no existe la entrada
-	return require('actions/404.php');
+	return require 'actions/404.php';
 }
 
 # Si existe la entrada
@@ -36,15 +40,15 @@ define('PARENT_TYPE', 'e');
 if ($row[7] != 'n') {
 	$FEED = _u('ce', $id, $slug);
 	define('COMMENTS_STATUS', $row[7]);
-	require('includes/comments.php');
+	require 'includes/comments.php';
 }
 
 if ($row[8] == 'y') {
-	require('includes/trackbacks.php');
+	require 'includes/trackbacks.php';
 }
 
 $TITLE = sprintf('%s%s%s', $row[2], S_TITLE, TITLE);
-require('view/entry.php');
+require 'view/entry.php';
 
 /*
  * rows		-	Array con la entrada

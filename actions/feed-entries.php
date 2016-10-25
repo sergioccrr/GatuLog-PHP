@@ -1,6 +1,6 @@
 <?php
 
-require('includes/rss.class.php');
+require 'includes/rss.class.php';
 
 $rss = new RSS(TITLE, _u('fe'), DESCRIPTION);
 

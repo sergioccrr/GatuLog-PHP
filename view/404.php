@@ -1,6 +1,6 @@
 <?php
 header('HTTP/1.x 404 Not Found');
-include('header.php');
+include 'header.php';
 ?>
 
 <div class="entry">
@@ -8,4 +8,4 @@ include('header.php');
 	<p>La página que estabas buscando no ha sido encontrada.</p>
 </div>
 
-<?php include('footer.php'); ?>
+<?php include 'footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
 header('HTTP/1.x 500 Internal Server Error');
-require('header.php');
+require 'header.php';
 ?>
 
 <div class="entry">
@@ -8,4 +8,4 @@ require('header.php');
 	<p>Se ha producido un error. Espera unos minutos y recarga la página.</p>
 </div>
 
-<?php include('footer.php'); ?>
+<?php include 'footer.php'; ?>

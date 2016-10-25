@@ -1,4 +1,4 @@
-<?php include('header.php'); ?>
+<?php include 'header.php'; ?>
 
 <?php if (isset($NoEntries)) { ?>
 <div class="entry">
@@ -40,4 +40,4 @@
 	<?php } ?>
 <?php } ?>
 
-<?php include('footer.php'); ?>
+<?php include 'footer.php' ; ?>

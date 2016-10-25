@@ -35,7 +35,7 @@ if ($totalEntries == 0) {
 	$totalFor = count($rows) - 1;
 }
 
-require('view/archive.php');
+require 'view/archive.php';
 
 /*
  * NoEntries	-	True si no hay entradas

@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET['p'])) {
-	$p = $_GET['p'];
-} else {
-	return require('actions/404.php');
+$p = isset($_GET['p']) ? $_GET['p'] : false;
+
+if (!$p) {
+	return require 'actions/404.php';
 }
 
 $query  = "SELECT p.*, COUNT(c.`id`)";
@@ -20,7 +20,7 @@ $sql = $DB->query($query, $p);
 
 if (mysqli_num_rows($sql) == 0) {
 	# Si no existe la pagina
-	return require('actions/404.php');
+	return require 'actions/404.php';
 }
 
 # Si existe la pagina
@@ -33,15 +33,15 @@ define('PARENT_TYPE', 'p');
 if ($row[5] != 'n') {
 	$FEED = _u('cp', $p);
 	define('COMMENTS_STATUS', $row[5]);
-	require('includes/comments.php');
+	require 'includes/comments.php';
 }
 
 if ($row[6] == 'y') {
-	require('includes/trackbacks.php');
+	require 'includes/trackbacks.php';
 }
 
 $TITLE = sprintf('%s%s%s', $row[2], S_TITLE, TITLE);
-require('view/page.php');
+require 'view/page.php';
 
 /*
  * row		-	Array con la pagina

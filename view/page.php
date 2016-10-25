@@ -1,4 +1,4 @@
-<?php include('header.php'); ?>
+<?php include 'header.php'; ?>
 
 <div class="entry">
 
@@ -21,8 +21,8 @@
 </div>
 
 <?php
-if (defined('COMMENTS_STATUS')) { require('view/comments.php'); }
-if ($row[6] == 'y') { require('view/trackbacks.php'); }
+if (defined('COMMENTS_STATUS')) { require 'view/comments.php'; }
+if ($row[6] == 'y') { require 'view/trackbacks.php'; }
 ?>
 
-<?php include('footer.php'); ?>
+<?php include 'footer.php'; ?>

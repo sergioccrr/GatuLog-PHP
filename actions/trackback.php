@@ -43,7 +43,7 @@ if (mysqli_num_rows($sql) != 0) {
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST' && !isset($pid)) {
 	# Petición GET - No existe la entrada/página
-	require('actions/404.php');
+	require 'actions/404.php';
 } elseif ($_SERVER['REQUEST_METHOD'] != 'POST' && isset($pid)) {
 	# Petición GET - Existe la entrada/página
 	$tmp = ($_GET['type'] == 'e') ? _u('e', $id, $slug) : _u('p', $p);
